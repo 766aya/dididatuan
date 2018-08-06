@@ -11,5 +11,7 @@
 </script>
 
 <style>
-
+	#app {
+		background: #F5F5F5;
+	}
 </style>

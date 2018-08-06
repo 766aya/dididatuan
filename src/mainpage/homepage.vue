@@ -1,6 +1,6 @@
 <template>
 	<div id="home">
-		123
+		<router-view />
 		<Footer></Footer>
 	</div>
 </template>
@@ -17,5 +17,5 @@
 </script>
 
 <style>
-	
+
 </style>
