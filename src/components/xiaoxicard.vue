@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<div class="img" :info="5">
+		<div class="img" >
             <img :src="data.img">
         </div>
         <div class="text-group">
