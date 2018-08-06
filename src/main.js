@@ -6,6 +6,7 @@ import router from './router'
 
 import Vant from 'vant'
 import 'vant/lib/vant-css/index.css';
+import 'vant/lib/vant-css/icon-local.css';
 Vue.use(Vant);
 
 Vue.config.productionTip = false
