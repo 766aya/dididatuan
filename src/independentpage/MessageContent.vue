@@ -6,7 +6,7 @@
 			left-arrow
 			@click-left="onClickLeft"
 		/>
-		<div class="main">
+		<div class="content">
 			
 		</div>
 	</div>
@@ -33,12 +33,13 @@
 
 <style scoped>
 	#message-content {
-		color: #E0E0E0;
 		text-align: center;
 		font-size: 12px;
 	}
-	.main {
+	.content {
 		display: grid;
+		text-align: center;
+		font-size: 12px;
 		width: 100vw;
 		height: 100%;
 		padding: 20px;
