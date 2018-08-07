@@ -1,6 +1,6 @@
 <template>
     <div class="menuList" @click="routerPush(list.url)">
-        <span class="list-title"><i class="iconfont" :class="list.icon"></i></span>
+        <span class="list-title iconfont" :class="list.icon"></span>
         <p class="list-content">{{list.name}}</p>
     </div>
 </template>
@@ -25,19 +25,19 @@
 <style scoped>
     .menuList {
         display: flex;
-        height: 70px;
-        line-height: 70px;
         background-color: #fff;
-        border-bottom: 3px solid #f5f5f5;
+        padding: 10px 0;
+        margin-bottom: 5px;
     }
     .list-title {
-        width: 70px;
+        width: 50px;
         text-align: center;
     }
-    .list-title i {
-        font-size: 26px;
+    .list-title {
+        font-size: 1rem;
     }
     .list-content {
         margin-left: 5px;
+        font-size: 0.75rem;
     }
 </style>

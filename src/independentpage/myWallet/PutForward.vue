@@ -1,30 +1,30 @@
 <template>
-    <div id="Recommendd">
-        <van-nav-bar
+	<div id="putForward">
+		<van-nav-bar
             :title="routeInfo.title"
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"
         />
-    </div>
+	</div>
 </template>
 
 <script>
-    export default {
-        name: 'serviceAndHelp',
+	export default {
+        name: 'putForward',
         data() {
             return {
                 routeInfo: this.$route.query,
             }
         },
-		methods: {
-			onClickLeft() {
+        methods: {
+            onClickLeft() {
 				this.$router.push({name: 'User', query: {bar: '2'} })
-			}
-		}
-    }
+			},
+        }
+	}
 </script>
 
-<style scoped>
-
+<style>
+	
 </style>

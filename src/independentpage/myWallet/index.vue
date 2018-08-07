@@ -1,19 +1,13 @@
 <template>
 	<div id="myWallet">
-		<van-nav-bar
-            :title="routeInfo.title"
-            left-text="返回"
-            left-arrow
-            @click-left="onClickLeft"
-        />
 		<div class="content">
 			<div class="coin-item">
-				<div class="title">滴滴币<span class="iconfont icon-yiwen title icon"></span></div>
+				<div class="title">滴滴币<span class="iconfont icon-yiwen title icon" @click="msg('滴滴币只能用于支付，不可提现!')"></span></div>
 				<div class="num">0</div>
 			</div>
 			<div></div>
 			<div class="coin-item">
-				<div class="title">贝壳<span class="iconfont icon-yiwen title icon"></span></div>
+				<div class="title">贝壳<span class="iconfont icon-yiwen title icon" @click="msg('大神收益将存入贝壳中，达到一定金额后可以提现')"></span></div>
 				<div class="num">0</div>
 			</div>
 			<div class="put-forward iconfont icon-tixian" @click="puForward">提现</div>
@@ -29,18 +23,18 @@
 		name: 'myWallet',
 		data() {
 			return {
-				routeInfo: this.$route.query,
+				
 			}
 		},
 		methods: {
-			onClickLeft() {
-				this.$router.push({name: 'User', query: {bar: '2'} })
-			},
 			puForward() {
 				Toast('点击进入提现页面');
 			},
 			transactionRecord() {
 				Toast('点击查看交易记录');
+			},
+			msg(val) {
+				Toast(val);
 			}
 		}
 	}

@@ -5,13 +5,15 @@ import message from '@/mainpage/message'
 import DaTuan from '@/mainpage/datuan'
 import User from '@/mainpage/user'
 
+import independentPage from '@/independentpage/independentpage'
+
 import MessageContent from '@/independentpage/MessageContent'
-import myOrder from '@/independentpage/myOrder'
-import myWallet from '@/independentpage/myWallet'
-import myCoupon from '@/independentpage/myCoupon'
-import Authentication from '@/independentpage/Authentication'
-import Recommend from '@/independentpage/Recommend'
-import serviceAndHelp from '@/independentpage/serviceAndHelp'
+import myOrder from '@/independentpage/myOrder/index'
+import myWallet from '@/independentpage/myWallet/index'
+import myCoupon from '@/independentpage/myCoupon/index'
+import Authentication from '@/independentpage/Authentication/index'
+import Recommend from '@/independentpage/Recommend/index'
+import serviceAndHelp from '@/independentpage/serviceAndHelp/index'
 
 Vue.use(Router)
 
@@ -39,35 +41,41 @@ export default new Router({
           component: User
         }
       ]
-    },
-    {
+    }, {
       path: '/message/:id',
       name: 'MessageContent',
       component: MessageContent
     }, {
-      path: '/myOrder',
-      name: 'myOrder',
-      component: myOrder
-    }, {
-      path: '/myWallet',
-      name: 'myWallet',
-      component: myWallet
-    }, {
-      path: '/myCoupon',
-      name: 'myCoupon',
-      component: myCoupon
-    }, {
-      path: '/Authentication',
-      name: 'Authentication',
-      component: Authentication
-    }, {
-      path: '/Recommend',
-      name: 'Recommend',
-      component: Recommend
-    }, {
-      path: '/serviceAndHelp',
-      name: 'serviceAndHelp',
-      component: serviceAndHelp
+      path: '/independentpage',
+      name: 'independentPage',
+      component: independentPage,
+      children: [
+        {
+          path: 'myOrder',
+          name: 'myOrder',
+          component: myOrder
+        }, {
+          path: 'myWallet',
+          name: 'myWallet',
+          component: myWallet
+        }, {
+          path: 'myCoupon',
+          name: 'myCoupon',
+          component: myCoupon
+        }, {
+          path: 'Authentication',
+          name: 'Authentication',
+          component: Authentication
+        }, {
+          path: 'Recommend',
+          name: 'Recommend',
+          component: Recommend
+        }, {
+          path: 'serviceAndHelp',
+          name: 'serviceAndHelp',
+          component: serviceAndHelp
+        },
+      ]
     }
   ]
 })

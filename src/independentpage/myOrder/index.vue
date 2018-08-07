@@ -1,11 +1,5 @@
 <template>
 	<div id="order-content">
-		<van-nav-bar
-			:title="routeInfo.title"
-			left-text="返回"
-			left-arrow
-			@click-left="onClickLeft"
-		/>
 		<div class="main">
 			<div v-if="list.length"></div>
 			<div v-else class="order-null">没有订单</div>

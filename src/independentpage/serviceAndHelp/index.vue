@@ -1,17 +1,12 @@
 <template>
     <div id="Recommendd">
-        <van-nav-bar
-            :title="routeInfo.title"
-            left-text="返回"
-            left-arrow
-            @click-left="onClickLeft"
-        />
+        暂无信息
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Recommendd',
+        name: 'serviceAndHelp',
         data() {
             return {
                 routeInfo: this.$route.query,
