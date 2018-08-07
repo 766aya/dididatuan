@@ -7,7 +7,8 @@
 			@click-left="onClickLeft"
 		/>
 		<div class="main">
-			
+			<div v-if="list.length"></div>
+			<div v-else class="order-null">没有订单</div>
 		</div>
 	</div>
 </template>
@@ -17,7 +18,8 @@
 		name: 'order-content',
 		data() {
 			return {
-				routeInfo: this.$route.query
+				routeInfo: this.$route.query,
+				list: []
 			}
 		},
 		created() {
@@ -32,4 +34,9 @@
 </script>
 
 <style scoped>
+.order-null {
+	font-size: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
 </style>
