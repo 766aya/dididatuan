@@ -9,6 +9,17 @@ import 'vant/lib/vant-css/index.css';
 import 'vant/lib/vant-css/icon-local.css';
 Vue.use(Vant);
 
+
+import Axios from 'axios'
+// 全局混入
+Vue.mixin({
+	data() {
+		return {
+			Axios: Axios,
+		}
+	}
+})
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

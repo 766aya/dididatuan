@@ -5,14 +5,18 @@ import message from '@/mainpage/message'
 import DaTuan from '@/mainpage/datuan'
 import User from '@/mainpage/user'
 
+import MessageContent from '@/independentpage/MessageContent'
+
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'HomePage',
       component: homepage,
+      alias: '/',
       children: [
         {
           path: 'message',
@@ -21,17 +25,19 @@ export default new Router({
         }, {
           path: 'datuan',
           name: 'DaTuan',
-          component: DaTuan
+          component: DaTuan,
+          alias: '/',
         }, {
           path: 'user',
           name: 'User',
           component: User
-        }, {
-          path: '*',
-          name: 'DaTuan',
-          component: DaTuan
         }
       ]
+    },
+    {
+      path: '/message/:id',
+      name: 'MessageContent',
+      component: MessageContent
     }
   ]
 })

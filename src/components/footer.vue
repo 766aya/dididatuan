@@ -13,11 +13,16 @@
 		name: "Footer",
 		data() {
 			return {
-				active: 1
-			};
+				active: 1,
+				routeInfo: this.$route.query,
+			}
 		},
 		created() {
-			this.$router.push({name: 'DaTuan'})
+			if (this.routeInfo.bar) {
+				this.active = parseInt(this.routeInfo.bar);
+			} else {
+				this.active = 1;
+			}
 		},
 		watch: {
 			active(val) {
@@ -37,7 +42,8 @@
 						break;
 				}
 			}
-		}
+		},
+		
 	}
 </script>
 

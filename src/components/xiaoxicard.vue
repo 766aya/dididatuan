@@ -1,12 +1,14 @@
 <template>
 	<div class="card">
-		<div class="img" >
-            <img :src="data.img">
-        </div>
-        <div class="text-group">
-            <div class="text title" v-text="data.title"></div>
-            <div class="text msg" v-text="data.msg ? data.msg : '暂无新消息'"></div>
-        </div>
+        <router-link class="link" :to="{name: 'MessageContent', params: {id: data.userId}, query: { userId: data.userId, username: data.title } }">
+    		<div class="img" >
+                <img :src="data.img">
+            </div>
+            <div class="text-group">
+                <div class="text title" v-text="data.title"></div>
+                <div class="text msg" v-text="data.msg ? data.msg : '暂无新消息'"></div>
+            </div>
+        </router-link>
 	</div>
 </template>
 
@@ -18,11 +20,15 @@
 </script>
 
 <style scoped>
+    .link {
+        height: 70px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 90px auto;
+    }
 	.card {
         width: 100%;
         height: 70px;
-		display: grid;
-        grid-template-columns: 90px auto;
         border-top: 1px solid #E0E0E0;
         border-bottom: 1px solid #E0E0E0;
         background: #FFFFFF;

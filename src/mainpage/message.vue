@@ -20,6 +20,7 @@
 		data() {
 			return {
                 active: 0,
+                routeInfo: this.$route.query,
 				NoticeList: [
                     {
                         title: '8月2日更新公告',
@@ -53,21 +54,25 @@
                 ],
                 MsgList: [
                     {
-                        img: 'http://img3.duitang.com/uploads/item/201511/14/20151114125146_LXHzE.jpeg',
+                        img: 'http://img2.imgtn.bdimg.com/it/u=2561011807,290788206&fm=214&gp=0.jpg',
                         title: '系统消息',
-                        msg: null
+                        msg: null,
+                        userId: 27017
                     }, {
-                        img: 'http://img4.duitang.com/uploads/item/201406/30/20140630212814_NeGmF.jpeg',
+                        img: 'http://img1.imgtn.bdimg.com/it/u=3726621776,1777911746&fm=214&gp=0.jpg',
                         title: '涂涂小朋友',
-                        msg: 'aaa'
+                        msg: 'aaa',
+                        userId: 27019
                     }, {
-                        img: 'http://img4.duitang.com/uploads/item/201406/30/20140630212055_uGUzA.jpeg',
+                        img: 'http://img.besoo.com/file/201706/04/2202292845908.jpg',
                         title: '[大神]芸',
-                        msg: 'bbb'
+                        msg: 'bbb',
+                        userId: 28080
                     }, {
                         img: 'http://img3.imgtn.bdimg.com/it/u=2763300049,1542445224&fm=27&gp=0.jpg',
                         title: '[团长]Yuner',
-                        msg: 'ccc'
+                        msg: 'ccc',
+                        userId: 28081
                     },
                 ]
 			};
@@ -75,7 +80,14 @@
         components: {
             GGCard,
             XXCard
-        }
+        },
+        created() {
+            if (this.routeInfo.type) {
+                this.active = parseInt(this.routeInfo.type);
+            } else {
+                this.active = 0;
+            }
+        },
 	};
 </script>
 

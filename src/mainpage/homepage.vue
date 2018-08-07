@@ -10,10 +10,19 @@
 
 	export default {
 		name: 'HomePage',
+		data() {
+			return {
+				yzm: '',
+			}
+		},
 		components: {
 			Footer
+		},
+		created() {
+			let self = this;
 		}
 	}
+	
 </script>
 
 <style>
