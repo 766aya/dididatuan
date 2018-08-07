@@ -6,6 +6,7 @@
 			</van-swipe-item>
 		</van-swipe>
 		<Settlement></Settlement>
+        <div class="xcy">带你装逼带你飞，大神带你上天咯！</div>
 	</div>
 </template>
 
@@ -38,13 +39,21 @@
 <style>
     #datuan {
         overflow-y: auto;
-        /*padding-bottom: 100px;*/
+        padding-bottom: 50px;
     }
 	.swipe-box {
-		/*height: 300px;*/
+		width: 100%;
+        height: 150px;
+        overflow: hidden;
 	}
 	.swipe {
 		width: 100%;
 		overflow: hidden;
 	}
+    .xcy {
+        text-align: center;
+        padding: 20px 0; 
+        font-size: 0.75rem;
+        color: #AAAAAA;
+    }
 </style>
