@@ -45,27 +45,27 @@ export default new Router({
       name: 'MessageContent',
       component: MessageContent
     }, {
-      path: '',
+      path: '/myOrder',
       name: 'myOrder',
       component: myOrder
     }, {
-      path: '',
+      path: '/myWallet',
       name: 'myWallet',
       component: myWallet
     }, {
-      path: '',
+      path: '/myCoupon',
       name: 'myCoupon',
       component: myCoupon
     }, {
-      path: '',
+      path: '/Authentication',
       name: 'Authentication',
       component: Authentication
     }, {
-      path: '',
+      path: '/Recommend',
       name: 'Recommend',
       component: Recommend
     }, {
-      path: '',
+      path: '/serviceAndHelp',
       name: 'serviceAndHelp',
       component: serviceAndHelp
     }

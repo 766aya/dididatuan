@@ -1,5 +1,5 @@
 <template>
-    <div class="menuList">
+    <div class="menuList" @click="routerPush(list.url)">
         <span class="list-title"><i class="iconfont" :class="list.icon"></i></span>
         <p class="list-content">{{list.name}}</p>
     </div>
@@ -13,7 +13,13 @@
                 
             }
         },
-        props:['list']
+        props:['list'],
+        methods: {
+            routerPush (url) {
+                console.log("url: ", url)
+                this.$router.push({name: url})
+            }
+        }
     };
 </script>
 
