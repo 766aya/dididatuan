@@ -1,7 +1,7 @@
 <template>
     <div id="coupon-content">
         <van-nav-bar
-            :title="routeInfo.username"
+            :title="routeInfo.title"
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"

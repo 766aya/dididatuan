@@ -16,8 +16,7 @@
         props:['list'],
         methods: {
             routerPush (url) {
-                console.log("url: ", url)
-                this.$router.push({name: url})
+                this.$router.push({name: url, query: {title: this.list.name}})
             }
         }
     };

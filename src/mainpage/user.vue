@@ -34,7 +34,7 @@
                 }, {
                     icon: 'icon-fenxiang',
                     name: '好友推荐',
-                    ur: 'Recommend'
+                    url: 'Recommend'
                 }, {
                     icon: 'icon-kefu',
                     name: '客服与帮助',
@@ -51,5 +51,7 @@
 </script>
 
 <style>
-
+    #user {
+        padding-bottom: 50px;
+    }
 </style>
