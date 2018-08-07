@@ -31,6 +31,7 @@
         display: grid;
         grid-template-rows: 40px 70px;
         background-color: #FFFFFF;
+        margin-bottom: 10px;
     }
     .title {
         display: grid;
