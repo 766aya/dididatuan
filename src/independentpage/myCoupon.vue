@@ -8,13 +8,9 @@
         />
         <div class="main">
             <div v-if="list.length">
-                <van-popup v-model="showList" position="bottom">
-                  <van-coupon-list
-                    :coupons="coupons"
-                    :chosen-coupon="chosenCoupon"
-                    :disabled-coupons="disabledCoupons"
-                  />
-                </van-popup>
+                <van-coupon-list
+                    :coupons="list"
+                />
             </div>
             <div v-else class="coupon-null">没有优惠券</div>
         </div>
@@ -30,7 +26,11 @@
                 list: [{
                     id: 1,
                     name: '新人礼-卢克券',
-                    start_at: '2018-01-01'
+                    start_at: '1489104000',
+                    end_at: 1514592000,
+                    value: 150,
+                    denominations: 150,
+                    origin_condition: 0
                 }]
             }
         },

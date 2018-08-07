@@ -2,7 +2,7 @@
 	<div id="user">
 		<user-info></user-info>
 		<my-role></my-role>
-        <menu-list v-for="item in menuData" :list="item"></menu-list>
+        <menu-list v-for="(item, index) in menuData" :key="'列表'+index" :list="item"></menu-list>
 	</div>
 </template>
 
