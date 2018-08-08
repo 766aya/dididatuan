@@ -82,11 +82,18 @@
             XXCard
         },
         created() {
+            let self = this;
             if (this.routeInfo.type) {
                 this.active = parseInt(this.routeInfo.type);
             } else {
                 this.active = 0;
             }
+            this.Axios.get('/api/v1/notice').then(res=>{
+                console.log(res)
+                // self.NoticeList
+            }).catch(err=>{
+                console.log(err)
+            })
         },
 	};
 </script>
