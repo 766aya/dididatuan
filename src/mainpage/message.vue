@@ -21,37 +21,7 @@
 			return {
                 active: 0,
                 routeInfo: this.$route.query,
-				NoticeList: [
-                    {
-                        title: '8月2日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['1.[超时空]副本震撼开启','2.[卢克-团队]副本价格下调','3.其他体验优化及价格修复']
-                    }, {
-                        title: 'IOS支付恢复公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['IOS支付已恢复正常，各位老板可以下单啦。']
-                    }, {
-                        title: '7月31日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['由于微信的IOS支付接口出现异常，目前使用苹果手机支付时会失败，请各位使用苹果手机老板暂时不要下单。','还望各位见谅、耐心等待后续公告。恢复正常后我们会第一时间通知各位。']
-                    }, {
-                        title: '7月30日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['1.[超时空]副本震撼开启','2.[卢克-团队]副本价格下调','3.其他体验优化及价格修复']
-                    }, {
-                        title: '7月30日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['1.[超时空]副本震撼开启','2.[卢克-团队]副本价格下调','3.其他体验优化及价格修复']
-                    }, {
-                        title: '7月30日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['1.[超时空]副本震撼开启','2.[卢克-团队]副本价格下调','3.其他体验优化及价格修复']
-                    }, {
-                        title: '7月30日更新公告',
-                        timer: '2018-08-02 05:30:36',
-                        msgs: ['1.[超时空]副本震撼开启','2.[卢克-团队]副本价格下调','3.其他体验优化及价格修复']
-                    }
-                ],
+				NoticeList: [],
                 MsgList: [
                     {
                         img: 'http://img2.imgtn.bdimg.com/it/u=2561011807,290788206&fm=214&gp=0.jpg',
@@ -88,9 +58,43 @@
             } else {
                 this.active = 0;
             }
-            this.Axios.get('/api/v1/notice').then(res=>{
-                console.log(res)
-                // self.NoticeList
+            new Promise((resolve, reject)=>{
+                self.Axios.get('/api/v1/notice').then(res=>{
+                    if (res.status==200) {
+                        resolve(res)
+                    } else {
+                        reject(res)
+                    }
+                }).catch(err=>{
+                    reject(err)
+                })
+            }).then(res=>{
+                let messageList = res.data.objects;
+                var timed = (time)=>{
+                    let dates = new Date(time*1000)
+                    let year = dates.getFullYear()
+                    let mon  = dates.getMonth()
+                    let day  = dates.getDay()
+                    let h    = dates.getHours()
+                    let m    = dates.getMinutes()
+                    let s    = dates.getSeconds()
+                    return `${year}-${mon}-${day} ${h}:${m}:${s}`
+                }
+                var texted = (text)=>{
+                    let textList = []
+                    let t = text.split('\n')
+                    return t
+                }
+                messageList.forEach((item, index)=>{
+                    let timer = timed(item.created)
+                    let msgs = texted(item.content)
+                    let data = {
+                        title: item.title,
+                        timer: timer,
+                        msgs: msgs
+                    }
+                    self.NoticeList.push(data)
+                });
             }).catch(err=>{
                 console.log(err)
             })

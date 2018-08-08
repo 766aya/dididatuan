@@ -151,15 +151,16 @@
 					new Promise((reslove, reject)=>{
 						self.Axios.post('/api/v1/user/register', {
 							phone_code: self.inputInfo.phone_code,
-							username: self.inputInfo.username,
+							// username: self.inputInfo.username,
+							username: 'test0808',
 							password: self.inputInfo.password,
 							qq: self.inputInfo.qq,
 							type: 0
 						})
 					}).then(res=>{
-
+						console.log(res)
 					}).catch(err=>{
-
+						console.log(err)
 					})
 				} else {
 					if(!testData.phone_code) {
