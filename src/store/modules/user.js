@@ -23,13 +23,14 @@ const state = {
         icon: 'icon-kefu',
         name: '客服与帮助',
         url: 'serviceAndHelp'
-    }]
+    }],
 }
 
 const getters = {
 }
 
 const mutations = {
+    
 }
 
 const actions = {
