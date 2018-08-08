@@ -18,11 +18,13 @@
 			}
 		},
 		created() {
-			if (this.routeInfo.bar) {
-				this.active = parseInt(this.routeInfo.bar);
-			} else {
-				this.active = 1;
-				this.$router.push({name: 'DaTuan', query: {bar: 1} })
+			if (!this.routeInfo.default) {
+				if (this.routeInfo.bar) {
+					this.active = parseInt(this.routeInfo.bar);
+				} else {
+					this.active = 1;
+					this.$router.push({name: 'DaTuan', query: {bar: 1} })
+				}
 			}
 		},
 		watch: {

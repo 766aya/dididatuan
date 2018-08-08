@@ -11,9 +11,9 @@
 				<img src="/static/logo.png">
 			</div>
 			<div class="content">
-				<van-button type="default" @click="()=>this.$router.push({ name: 'Register'})">用户注册</van-button>
+				<van-button type="default" @click="()=>this.$router.push({ name: 'Register', query: {default: 1}})">用户注册</van-button>
 				<div style="display: inline;padding: 0px 10px;">|</div>
-				<van-button type="default" @click="()=>this.$router.push({ name: 'Login'})">用户登陆</van-button>
+				<van-button type="default" @click="()=>this.$router.push({ name: 'Login', query: {default: 1}})">用户登陆</van-button>
 			</div>
 		</div>
 	</div>
