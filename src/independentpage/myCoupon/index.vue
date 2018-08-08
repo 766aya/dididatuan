@@ -1,9 +1,12 @@
 <template>
     <div id="coupon-content">
         <div class="main">
-            <div v-if="list.length">
+            <div v-if="data.list.length">
                 <van-coupon-list
-                    :coupons="list"
+                    :coupons="data.list"
+                    :show-close-button=false
+                    :show-exchange-bar=false
+                    input-placeholder="请输入优惠券的名称"
                 />
             </div>
             <div v-else class="coupon-null">没有优惠券</div>
@@ -17,19 +20,11 @@
         data() {
             return {
                 routeInfo: this.$route.query,
-                list: [{
-                    id: 1,
-                    name: '新人礼-卢克券',
-                    start_at: '1489104000',
-                    end_at: 1514592000,
-                    value: 150,
-                    denominations: 150,
-                    origin_condition: 0
-                }]
+                data: this.$store.state.coupon
             }
         },
         created() {
-            
+            console.log('user: ', this.$store)
         },
         methods: {
             onClickLeft() {
