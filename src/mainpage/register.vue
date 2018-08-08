@@ -132,7 +132,8 @@
 
 <style scoped>
 	#register {
-
+		padding-bottom: 50px;
+		overflow-y: auto;
 	}
 	.logo {
 		width: 50px;
@@ -149,7 +150,7 @@
 	}
 	.btn {
 		display: block;
-		margin: 0 auto;
+		margin: 20px auto;
 		margin-top: 15px;
 		width: 80%;
 		text-align: center;
