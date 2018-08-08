@@ -1,9 +1,21 @@
 <template>
-	<div id="userinfo">
-		<div class="img">
-			<img src="http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg">
+	<div>
+		<div id="userinfo" v-if="isLogin">
+			<div class="img">
+				<img :src="userinfo.userImg">
+			</div>
+			<div class="userId" v-text="`(uid: ${userinfo.userId})`"></div>
 		</div>
-		<div class="userId" v-text="`(uid: ${userId})`"></div>
+		<div id="userinfo" v-else>
+			<div class="img">
+				<img src="/static/logo.png">
+			</div>
+			<div class="content">
+				<van-button type="default" @click="()=>this.$router.push({ name: 'Register'})">用户注册</van-button>
+				<div style="display: inline;padding: 0px 10px;">|</div>
+				<van-button type="default" @click="()=>this.$router.push({ name: 'Login'})">用户登陆</van-button>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -12,7 +24,19 @@
 		name: 'userinfo',
 		data() {
 			return {
-				userId: 27017
+				isLogin: false,
+				userinfo: {
+					userId: '',
+					userImg: ''
+				},
+				defaultInfo: {
+					imgsrc: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg'
+				}
+			}
+		},
+		created() {
+			if (this.userinfo.userId == '') {
+
 			}
 		}
 	}
@@ -42,5 +66,9 @@
 		line-height: 50px;
 		text-align: center;
 		color: #9E9E9E;
+	}
+	.content {
+		line-height: 50px;
+		text-align: center;
 	}
 </style>

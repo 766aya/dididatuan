@@ -4,6 +4,8 @@ import homepage from '@/mainpage/homepage'
 import message from '@/mainpage/message'
 import DaTuan from '@/mainpage/datuan'
 import User from '@/mainpage/user'
+import Login from '@/mainpage/login'
+import Register from '@/mainpage/register'
 
 import independentPage from '@/independentpage/independentpage'
 
@@ -39,6 +41,14 @@ export default new Router({
           path: 'user',
           name: 'User',
           component: User
+        }, {
+          path: 'login',
+          name: 'Login',
+          component: Login,
+        },{
+          path: 'register',
+          name: 'Register',
+          component: Register,
         }
       ]
     }, {

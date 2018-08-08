@@ -22,6 +22,7 @@
 				this.active = parseInt(this.routeInfo.bar);
 			} else {
 				this.active = 1;
+				this.$router.push({name: 'DaTuan', query: {bar: 1} })
 			}
 		},
 		watch: {
@@ -30,13 +31,13 @@
 				let self = this;
 				switch (val) {
 					case 0:
-						self.$router.push({name: 'Message'});
+						self.$router.push({name: 'Message', query: {bar: 0} });
 						break;
 					case 1:
-						self.$router.push({name: 'DaTuan'});
+						self.$router.push({name: 'DaTuan', query: {bar: 1} });
 						break;
 					case 2:
-						self.$router.push({name: 'User'});
+						self.$router.push({name: 'User', query: {bar: 2} });
 						break;
 					default:
 						break;
