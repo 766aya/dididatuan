@@ -24,12 +24,12 @@
 		data() {
 			return {
 				didicoin: 0,
-				shellcoin: this.$store.state.user.userInfo.money,
+				shellcoin: this.$store.state.user.userInfo.money/100,
 			}
 		},
 		methods: {
 			putForward() {
-				this.$router.push( {name: 'PutForward', query: {title: '提现'}} )
+				this.$router.push({path: '/subpage/PutForward', query: {title: '提现'}})
 			},
 			transactionRecord() {
 				Toast('点击查看交易记录');
