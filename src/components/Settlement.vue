@@ -149,11 +149,11 @@
 	}
 	.logo {
 		position: absolute;
-		top: -16px;
+		top: -25px;
 		left: 50%;
-		margin-left: -50px;
+		margin-left: -35px;
 		height: 32px;
-		width: 100px;
+		width: 70px;
 
 	}
 	.logo > img {

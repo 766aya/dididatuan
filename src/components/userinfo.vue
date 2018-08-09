@@ -8,7 +8,9 @@
 				<div class="phone" v-text="userinfo.phone"></div>
 				<div class="qq" v-text="userinfo.qq"></div>
 			</div>
-			<div class="logout"></div>
+			<div class="logout">
+				<van-button type="default" @click="logOut">退出登陆</van-button>
+			</div>
 		</div>
 		<div id="userinfon" v-else>
 			<div class="img">
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+	import { Dialog, Toast } from 'vant';
+
 	export default {
 		name: 'userinfo',
 		data() {
@@ -48,6 +52,32 @@
                     self.$store.state.user.userInfo.type = res.type;
                 }
             })
+		},
+		methods: {
+			logOut() {
+				let self = this;
+				Dialog.confirm({
+					title: '提示',
+					message: `用户: ${self.$store.state.user.userInfo.phone},你确定要退出吗？`
+				}).then(() => {
+					Toast.loading({ mask: false, message: '退出中...' });
+					self.Axios.post('/api/v1/user/logout').then(res=>{
+						console.log(res)
+						if (res.data._status == 0 && res.status == 200) {
+							Toast.success('退出成功！')
+							self.isLogin = false;
+							self.$store.state.user.isLogin = false;
+							self.$router.push({name: 'User'})
+						} else {
+							Toast.fail('退出失败！'+res.data._reason)
+						}
+					}).catch(err=>{
+						Toast.fail('退出失败！')
+					})
+				}).catch(() => {
+					Toast.fail('退出失败！')
+				});
+			}
 		}
 	}
 </script>
@@ -59,8 +89,9 @@
 		padding: 10px 0;
 		width: 100vw;
 		height: 50px;
-		grid-template-columns: 70px 120px auto;
+		grid-template-columns: 70px 150px auto;
 		margin-bottom: 10px;
+		align-items:center;
 	}
 	#userinfon {
 		display: grid;
@@ -86,6 +117,9 @@
 		grid-template-rows: 25px 25px;
 		line-height: 25px;
 		text-align: left;
+	}
+	.logout {
+		text-align: center;
 	}
 	.phone {
 		color: #333333;

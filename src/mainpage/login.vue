@@ -15,7 +15,7 @@
 					v-model="inputInfo.username"
 					label="用户名"
 					type="text"
-					placeholder="请输入用户名或手机号"
+					placeholder="请输入手机号"
 					required
 					class="m-t15"
 				/>
@@ -53,8 +53,8 @@
 		data() {
 			return {
 				inputInfo: {
-					username: '',
-					password: '',
+					username: '18000000000',
+					password: 'admin1',
 					captcha_code: ''
 				},
 				yzmImgSrc: ''
@@ -79,18 +79,14 @@
 							if (res.status == 200) {
 								reslove(res)
 							}else{
-								reject(res)
+								reject(res.data._reason)
 							}
 						}).catch(err=>{
 							reject(err)
 						})
 					}).then(res=>{
-						if (res.data._status == 0) {
-							Toast.success('登陆成功!');
-							self.router.push({name: 'User'})
-						} else {
-							Toast.fail('登陆失败！'+ res.data._reason)
-						}
+						self.$router.push({name: 'User'})
+						Toast.success('登陆成功!');
 					}).catch(err=>{
 						Toast.fail('登陆失败!'+err);
 					})

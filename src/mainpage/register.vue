@@ -147,19 +147,26 @@
 				let self = this;
 				let testData = this.inputTest()
 				if (testData.phone_code && testData.password && testData.repassword && testData.qq) {
+					Toast.loading({ mask: false, message: '注册中...' });
 					new Promise((reslove, reject)=>{
 						self.Axios.post('/api/v1/user/register', {
 							phone_code: self.inputInfo.phone_code,
 							password: self.inputInfo.password,
 							qq: self.inputInfo.qq,
 							type: 0
+						}).then(res=>{
+							reslove(res)
+						}).catch(err=>{
+							reject(err)
 						})
 					}).then(res=>{
 						if (res.data._status == 0 && res.status == 200) {
 							Toast.success('注册成功！')
-							self.router.push({name: 'User'})
+							self.$router.push({name: 'User'})
 						} else {
 							Toast.fail('注册失败！'+ res.data._reason)
+							self.inputInfo.password = ''
+							self.inputInfo.repassword = ''
 						}
 					}).catch(err=>{
 						Toast.fail('注册失败！'+ err)
