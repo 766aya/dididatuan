@@ -1,30 +1,45 @@
 <template>
 	<div id="putForward">
-		<van-nav-bar
-            :title="routeInfo.title"
-            left-text="返回"
-            left-arrow
-            @click-left="onClickLeft"
-        />
+        <div class="content">
+            <div class="main">
+                <div>取款金额</div>
+                <div>
+                    <div>￥</div>
+                    <div>
+                        <input type="text">
+                    </div>
+                </div>
+                <div></div>
+            </div>
+            <div></div>
+            <div></div>
+        </div>
 	</div>
 </template>
 
 <script>
 	export default {
-        name: 'putForward',
+        name: 'PutForward',
         data() {
             return {
-                routeInfo: this.$route.query,
+                
             }
         },
         methods: {
             onClickLeft() {
-				this.$router.push({name: 'User', query: {bar: '2'} })
+				// this.$router.push({name: 'User', query: {bar: '2'} })
 			},
         }
 	}
 </script>
 
-<style>
-	
+<style scoped>
+	.content {
+        display: grid;
+        grid-template-rows: auto 50px 20px;
+    }
+    .main {
+        display: grid;
+        grid-template-rows: 25px 55px 25px;
+    }
 </style>

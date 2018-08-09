@@ -50,6 +50,7 @@
                     self.$store.state.user.userInfo.phone = res.phone;
                     self.$store.state.user.userInfo.qq = res.qq;
                     self.$store.state.user.userInfo.type = res.type;
+                    self.$store.state.user.userInfo.money = res.money;
                 }
             })
 		},
@@ -127,6 +128,7 @@
 	}
 	.qq {
 		color: #A5A5A5;
+		font-size: 0.8rem;
 	}
 	.content {
 		line-height: 50px;

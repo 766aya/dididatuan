@@ -3,14 +3,14 @@
 		<div class="content">
 			<div class="coin-item">
 				<div class="title">滴滴币<span class="iconfont icon-yiwen title icon" @click="msg('滴滴币只能用于支付，不可提现!')"></span></div>
-				<div class="num">0</div>
+				<div class="num" v-text="didicoin"></div>
 			</div>
 			<div></div>
 			<div class="coin-item">
 				<div class="title">贝壳<span class="iconfont icon-yiwen title icon" @click="msg('大神收益将存入贝壳中，达到一定金额后可以提现')"></span></div>
-				<div class="num">0</div>
+				<div class="num" v-text="shellcoin">0</div>
 			</div>
-			<div class="put-forward iconfont icon-tixian" @click="puForward">提现</div>
+			<div class="put-forward iconfont icon-tixian" @click="putForward">提现</div>
 			<div class="transaction-record" @click="transactionRecord">交易记录</div>
 		</div>
 	</div>
@@ -23,12 +23,13 @@
 		name: 'myWallet',
 		data() {
 			return {
-				
+				didicoin: 0,
+				shellcoin: this.$store.state.user.userInfo.money,
 			}
 		},
 		methods: {
-			puForward() {
-				Toast('点击进入提现页面');
+			putForward() {
+				this.$router.push( {name: 'subpage', query: {title: '提现'}} )
 			},
 			transactionRecord() {
 				Toast('点击查看交易记录');

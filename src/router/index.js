@@ -8,10 +8,15 @@ import Login from '@/mainpage/login'
 import Register from '@/mainpage/register'
 
 import independentPage from '@/independentpage/independentpage'
+import subpage from '@/independentpage/subpage'
 
 import MessageContent from '@/independentpage/MessageContent'
+
 import myOrder from '@/independentpage/myOrder/index'
+
 import myWallet from '@/independentpage/myWallet/index'
+import PutForward from '@/independentpage/myWallet/PutForward'
+
 import myCoupon from '@/independentpage/myCoupon/index'
 import Authentication from '@/independentpage/Authentication/index'
 import Recommend from '@/independentpage/Recommend/index'
@@ -84,7 +89,22 @@ export default new Router({
           path: 'serviceAndHelp',
           name: 'serviceAndHelp',
           component: serviceAndHelp
-        },
+        }, {
+          path: 'PutForward',
+          name: 'PutForward',
+          component: PutForward
+        }
+      ]
+    }, {
+      path: '/subpage',
+      name: 'subpage',
+      component: subpage,
+      children: [
+        {
+          path: 'PutForward',
+          name: 'PutForward',
+          component: PutForward
+        }
       ]
     }
   ]
