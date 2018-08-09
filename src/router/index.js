@@ -139,10 +139,6 @@ export default new Router({
           path: 'serviceAndHelp',
           name: 'serviceAndHelp',
           component: serviceAndHelp
-        }, {
-          path: 'PutForward',
-          name: 'PutForward',
-          component: PutForward
         }
       ]
     }, {
