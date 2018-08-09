@@ -29,7 +29,7 @@
 		},
 		methods: {
 			putForward() {
-				this.$router.push({path: '/subpage/PutForward', query: {title: '提现'}})
+				this.$router.push({name: 'PutForward', query: {title: '提现'}})
 			},
 			transactionRecord() {
 				Toast('点击查看交易记录');

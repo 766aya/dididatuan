@@ -11,7 +11,7 @@
                 <div class="yue" v-text="`余额 ${money}贝壳 (1贝壳=1元)`"></div>
             </div>
             <div class="submit">
-                <a href="">提现</a>
+                <a href="javascript:;" @click="putForward" :disabled="disabled" :class="{'btn-true': disabled==true, 'btn-err': disabled==false}">提现</a>
             </div>
             <div class="ts">2018年7月5日0时前，所有用户提现免手续费</div>
         </div>
@@ -37,6 +37,7 @@
                 money: 0,
                 tips: '',
                 val: '',
+                disabled: false
             }
         },
         created() {
@@ -87,6 +88,9 @@
             isHide() {
                 let val = parseFloat(this.val).toFixed(2)
                 this.val = val
+            },
+            putForward() {
+                console.log('click putForward')
             }
         }
 	}
@@ -144,11 +148,16 @@
     .submit a {
         display: block;
         height: 100%;
-        background: #44BB00;
         text-align: center;
         color: #FFFFFF;
         line-height: 40px;
         border-radius: 5px;
+    }
+    .btn-true {
+        background: #44BB00;
+    }
+    .btn-err {
+        background: #C5C5C5;
     }
     .ts {
         text-align: center;
