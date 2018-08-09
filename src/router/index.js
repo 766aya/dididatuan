@@ -19,7 +19,6 @@ import PutForward from '@/independentpage/myWallet/PutForward'
 
 import myCoupon from '@/independentpage/myCoupon/index'
 import Recommend from '@/independentpage/Recommend/index'
-import serviceAndHelp from '@/independentpage/serviceAndHelp/index'
 
 // 大神认证
 import Authentication from '@/independentpage/Authentication/index'
@@ -32,6 +31,17 @@ import groupHead from '@/independentpage/Authentication/groupHead' // 团长认�
 import payDeposit from '@/independentpage/Authentication/payDeposit' // 缴纳保证金
 import RealName from '@/independentpage/Authentication/RealName' // 实名认证
 import Calculator from '@/independentpage/Authentication/Calculator' // 佣金计算器
+
+// 客服与帮助
+import serviceAndHelp from '@/independentpage/serviceAndHelp/index'
+import bossAsk from '@/independentpage/serviceAndHelp/bossAsk'
+import godAsk from '@/independentpage/serviceAndHelp/godAsk'
+import bossCourse from '@/independentpage/serviceAndHelp/bossCourse'
+import headCourse from '@/independentpage/serviceAndHelp/headCourse'
+import godCourse from '@/independentpage/serviceAndHelp/godCourse'
+import didiTeam from '@/independentpage/serviceAndHelp/didiTeam'
+import callHelp from '@/independentpage/serviceAndHelp/callHelp'
+import cleanCache from '@/independentpage/serviceAndHelp/cleanCache'
 
 Vue.use(Router)
 
@@ -72,6 +82,40 @@ const greatGodList = [{
   path: 'Calculator',
   name: 'Calculator',
   component: Calculator
+}]
+
+const serviceAndHelpList = [{
+  path: 'bossAsk',
+  name: 'bossAsk',
+  component: bossAsk
+}, {
+  path: 'godAsk',
+  name: 'godAsk',
+  component: godAsk
+}, {
+  path: 'bossCourse',
+  name: 'bossCourse',
+  component: bossCourse
+}, {
+  path: 'headCourse',
+  name: 'headCourse',
+  component: headCourse
+}, {
+  path: 'godCourse',
+  name: 'godCourse',
+  component: godCourse
+}, {
+  path: 'didiTeam',
+  name: 'didiTeam',
+  component: didiTeam
+}, {
+  path: 'callHelp',
+  name: 'callHelp',
+  component: callHelp
+}, {
+  path: 'cleanCache',
+  name: 'cleanCache',
+  component: cleanCache
 }]
 
 export default new Router({
@@ -155,7 +199,7 @@ export default new Router({
           name: 'PutForward',
           component: PutForward
         }
-      ].concat(greatGodList)
+      ].concat(greatGodList).concat(serviceAndHelpList)
     }
   ]
 })

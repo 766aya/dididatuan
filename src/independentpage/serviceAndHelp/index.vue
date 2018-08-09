@@ -2,30 +2,30 @@
     <div id="Recommendd">
         <div class="title">常见问题</div>
         <div class="menu">
-            <router-link to="/" class="link">老板问答</router-link>
+            <router-link :to="{name: 'bossAsk', query: {title: '老板问答'}}" class="link">老板问答</router-link>
         </div>
         <div class="menu">
-            <router-link to="/" class="link">大神问答</router-link>
+            <router-link :to="{name: 'godAsk', query: {title: '大神问答'}}" class="link">大神问答</router-link>
         </div>
         <div class="title">使用教程</div>
         <div class="menu">
-            <router-link to="/" class="link">老板使用教程</router-link>
+            <router-link :to="{name: 'bossCourse', query: {title: '老板使用教程'}}" class="link">老板使用教程</router-link>
         </div>
         <div class="menu">
-            <router-link to="/" class="link">团长使用教程</router-link>
+            <router-link :to="{name: 'headCourse', query: {title: '团长使用教程'}}" class="link">团长使用教程</router-link>
         </div>
         <div class="menu">
-            <router-link to="/" class="link">大神教程</router-link>
+            <router-link :to="{name: 'godCourse', query: {title: '大神教程'}}" class="link">大神教程</router-link>
         </div>
         <div class="title">交流群</div>
         <div class="menu">
-            <router-link to="/" class="link">滴滴交流群</router-link>
+            <router-link :to="{name: 'didiTeam', query: {title: '滴滴交流群'}}" class="link">滴滴交流群</router-link>
         </div>
         <div class="btn">
-            <router-link to="/" class="callServer">联系客服</router-link>
+            <router-link :to="{name: 'callHelp', query: {title: '联系客服'}}" class="callServer">联系客服</router-link>
         </div>
         <div class="btn">
-            <router-link to="/" class="clearCache">清除缓存</router-link>
+            <router-link :to="{name: 'cleanCache', query: {title: '清除缓存'}}" class="clearCache">清除缓存</router-link>
         </div>
     </div>
 </template>
