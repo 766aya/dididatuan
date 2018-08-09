@@ -2,17 +2,17 @@
     <div id="Recommendd">
         <div class="recom-content">
             <p class="recom-title">实力认证</p>
-            <div class="recom-list" @click="routerPush('a')">大神认证</div>
-            <div class="recom-list" @click="routerPush('a')">团长认证</div>
+            <div class="recom-list" @click="routerPush('greatGod', '大神认证')">大神认证</div>
+            <div class="recom-list" @click="routerPush('groupHead', '团长认证')">团长认证</div>
         </div>
         <div class="recom-content">
             <p class="recom-title">个人认证</p>
-            <div class="recom-list" @click="routerPush('a')">缴纳保证金</div>
-            <div class="recom-list" @click="routerPush('a')">实名认证</div>
+            <div class="recom-list" @click="routerPush('payDeposit', '缴纳保证金')">缴纳保证金</div>
+            <div class="recom-list" @click="routerPush('RealName', '实名认证')">实名认证</div>
         </div>
         <div class="recom-content">
             <p class="recom-title">佣金</p>
-            <div class="recom-list" @click="routerPush('a')">佣金计算器</div>
+            <div class="recom-list" @click="routerPush('Calculator', '佣金计算器')">佣金计算器</div>
         </div>
         <div class="recom-tips">
             <p class="recom-tips-title">Tips:</p>
@@ -34,8 +34,8 @@
             }
         },
 		methods: {
-            routerPush (url) {
-                console.log("url: ", url)
+            routerPush (url, title) {
+                this.$router.push({name: url, query: {title: title}})
             }
 		}
     }
