@@ -1,7 +1,7 @@
 <template>
 	<div id="Settlement">
 		<div class="logo">
-			<img src="/static/logo.svg">
+			<img src="/static/logo.png">
 		</div>
 		<div class="settlement-content">
 			<div class="text t1">选择副本：</div>
