@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div id="userinfo" v-if="isLogin">
+		<div id="userinfol" v-if="isLogin">
 			<div class="img">
 				<img :src="defaultInfo.imgsrc">
 			</div>
@@ -10,9 +10,9 @@
 			</div>
 			<div class="logout"></div>
 		</div>
-		<div id="userinfo" v-else>
+		<div id="userinfon" v-else>
 			<div class="img">
-				<img src="/statics/logo.png">
+				<img src="/static/logo.png">
 			</div>
 			<div class="content">
 				<van-button type="default" @click="()=>this.$router.push({ name: 'Register', query: {default: 1}})">用户注册</van-button>
@@ -53,13 +53,22 @@
 </script>
 
 <style scoped>
-	#userinfo {
+	#userinfol {
 		display: grid;
 		background: #FFFFFF;
 		padding: 10px 0;
 		width: 100vw;
 		height: 50px;
 		grid-template-columns: 70px 120px auto;
+		margin-bottom: 10px;
+	}
+	#userinfon {
+		display: grid;
+		background: #FFFFFF;
+		padding: 10px 0;
+		width: 100vw;
+		height: 50px;
+		grid-template-columns: 70px auto;
 		margin-bottom: 10px;
 	}
 	.img {

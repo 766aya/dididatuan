@@ -8,7 +8,7 @@
         />
 		<div class="content">
 			<div class="logo">
-				<img src="/statics/logo.png" alt="">
+				<img src="/static/logo.png" alt="">
 			</div>
 			<van-cell-group>
 				<van-field
