@@ -12,7 +12,7 @@
 		</div>
 		<div id="userinfo" v-else>
 			<div class="img">
-				<img src="/static/logo.png">
+				<img src="/statics/logo.png">
 			</div>
 			<div class="content">
 				<van-button type="default" @click="()=>this.$router.push({ name: 'Register', query: {default: 1}})">用户注册</van-button>
