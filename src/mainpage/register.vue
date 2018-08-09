@@ -85,7 +85,6 @@
 				inputInfo: {
 					captcha_code: '', // 图形验证码答案
 					phone_code: '', // 手机验证码
-					username: '', // 用户名
 					password: '', // 密码
 					repassword: '', // 重复密码
 					phone: '', // 手机号
@@ -151,16 +150,19 @@
 					new Promise((reslove, reject)=>{
 						self.Axios.post('/api/v1/user/register', {
 							phone_code: self.inputInfo.phone_code,
-							// username: self.inputInfo.username,
-							username: 'test0808',
 							password: self.inputInfo.password,
 							qq: self.inputInfo.qq,
 							type: 0
 						})
 					}).then(res=>{
-						console.log(res)
+						if (res.data._status == 0 && res.status == 200) {
+							Toast.success('注册成功！')
+							self.router.push({name: 'User'})
+						} else {
+							Toast.fail('注册失败！'+ res.data._reason)
+						}
 					}).catch(err=>{
-						console.log(err)
+						Toast.fail('注册失败！'+ err)
 					})
 				} else {
 					if(!testData.phone_code) {

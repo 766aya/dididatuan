@@ -2,9 +2,13 @@
 	<div>
 		<div id="userinfo" v-if="isLogin">
 			<div class="img">
-				<img :src="userinfo.userImg">
+				<img :src="defaultInfo.imgsrc">
 			</div>
-			<div class="userId" v-text="`(uid: ${userinfo.userId})`"></div>
+			<div class="userId">
+				<div class="phone" v-text="userinfo.phone"></div>
+				<div class="qq" v-text="userinfo.qq"></div>
+			</div>
+			<div class="logout"></div>
 		</div>
 		<div id="userinfo" v-else>
 			<div class="img">
@@ -24,20 +28,26 @@
 		name: 'userinfo',
 		data() {
 			return {
-				isLogin: false,
-				userinfo: {
-					userId: '',
-					userImg: ''
-				},
+				isLogin: this.$store.state.user.isLogin,
+				userinfo: this.$store.state.user.userInfo,
 				defaultInfo: {
 					imgsrc: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg'
 				}
 			}
 		},
 		created() {
-			if (this.userinfo.userId == '') {
-
-			}
+			let self = this;
+			let t = this;
+			this.QueryLanding(self, (err, res)=>{
+                if (!err) {
+                	self.isLogin = true;
+                    self.$store.state.user.isLogin = true;
+                    self.$store.state.user.userInfo.username = res.username;
+                    self.$store.state.user.userInfo.phone = res.phone;
+                    self.$store.state.user.userInfo.qq = res.qq;
+                    self.$store.state.user.userInfo.type = res.type;
+                }
+            })
 		}
 	}
 </script>
@@ -49,7 +59,7 @@
 		padding: 10px 0;
 		width: 100vw;
 		height: 50px;
-		grid-template-columns: 70px auto;
+		grid-template-columns: 70px 120px auto;
 		margin-bottom: 10px;
 	}
 	.img {
@@ -63,9 +73,17 @@
 		border-radius: 5px;
 	}
 	.userId {
-		line-height: 50px;
-		text-align: center;
-		color: #9E9E9E;
+		display: grid;
+		grid-template-rows: 25px 25px;
+		line-height: 25px;
+		text-align: left;
+	}
+	.phone {
+		color: #333333;
+		font-weight: 700;
+	}
+	.qq {
+		color: #A5A5A5;
 	}
 	.content {
 		line-height: 50px;

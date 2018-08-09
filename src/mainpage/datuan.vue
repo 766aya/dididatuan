@@ -32,6 +32,19 @@
         },
         components: {
         	Settlement
+        },
+        created() {
+            let self = this;
+            this.QueryLanding(self, (err, res)=>{
+                if (!err) {
+                    self.isLogin = true;
+                    self.$store.state.user.isLogin = true;
+                    self.$store.state.user.userInfo.username = res.username;
+                    self.$store.state.user.userInfo.phone = res.phone;
+                    self.$store.state.user.userInfo.qq = res.qq;
+                    self.$store.state.user.userInfo.type = res.type;
+                }
+            })
         }
 	}
 </script>

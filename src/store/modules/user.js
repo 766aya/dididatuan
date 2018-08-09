@@ -24,6 +24,13 @@ const state = {
         name: '客服与帮助',
         url: 'serviceAndHelp'
     }],
+    isLogin: false,
+    userInfo: {
+        username: '',
+        phone: '',
+        qq: '',
+        type: ''
+    },
 }
 
 const getters = {

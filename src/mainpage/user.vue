@@ -22,6 +22,9 @@
         	userInfo,
         	myRole,
             menuList
+        },
+        created() {
+            
         }
 	}
 </script>

@@ -15,11 +15,13 @@ Vue.use(Vant);
 
 
 import Axios from 'axios'
+import QueryLanding from '@/assets/queryLandingStatus';
 // 全局混入
 Vue.mixin({
 	data() {
 		return {
 			Axios: Axios,
+			QueryLanding: QueryLanding
 		}
 	}
 })

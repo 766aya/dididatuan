@@ -85,10 +85,14 @@
 							reject(err)
 						})
 					}).then(res=>{
-						console.log('res: '+res)
-						Toast.success('登陆成功!');
+						if (res.data._status == 0) {
+							Toast.success('登陆成功!');
+							self.router.push({name: 'User'})
+						} else {
+							Toast.fail('登陆失败！'+ res.data._reason)
+						}
 					}).catch(err=>{
-						Toast.fail('登陆失败!');
+						Toast.fail('登陆失败!'+err);
 					})
 				} else {
 					Toast('用户名或密码不能为空!');

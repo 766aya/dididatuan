@@ -26,7 +26,7 @@
     .menuList {
         display: flex;
         background-color: #fff;
-        padding: 10px 0;
+        padding: 15px 0;
         margin-bottom: 5px;
     }
     .list-title {
@@ -34,10 +34,10 @@
         text-align: center;
     }
     .list-title {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
     .list-content {
-        margin-left: 5px;
-        font-size: 0.75rem;
+        /*margin-left: 5px;*/
+        font-size: 1rem;
     }
 </style>
