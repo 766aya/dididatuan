@@ -1,6 +1,6 @@
 <template>
     <div id="assessment">
-        asdasdasd
+        大神规则考核
     </div>
 </template>
 

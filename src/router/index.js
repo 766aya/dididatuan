@@ -41,10 +41,6 @@ const greatGodList = [{
   name: 'greatGod',
   component: greatGod
 }, {
-  path: 'authenticate',
-  name: 'authenticate',
-  component: authenticate
-}, {
   path: 'method',
   name: 'method',
   component: method

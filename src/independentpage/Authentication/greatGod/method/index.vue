@@ -1,6 +1,6 @@
 <template>
     <div id="method">
-        asdasdasd
+        大神端使用方式学习
     </div>
 </template>
 

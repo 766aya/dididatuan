@@ -1,6 +1,6 @@
 <template>
     <div id="standard">
-        asdasdasd
+        大神行为管理规范
     </div>
 </template>
 

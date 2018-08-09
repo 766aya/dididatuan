@@ -1,6 +1,6 @@
 <template>
     <div id="authenticate">
-        asdasdasd
+        大神角色认证
     </div>
 </template>
 
