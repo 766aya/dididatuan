@@ -19,13 +19,13 @@
             	imgs: [
             		{
             			title: '轮播1',
-            			url: 'http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201806/jiaoben5973/images/1.png'
+            			url: '/static/banner01.jpg'
             		}, {
             			title: '轮播2',
-            			url: 'http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201806/jiaoben5973/images/2.png'
+            			url: '/static/banner02.jpg'
             		}, {
             			title: '轮播3',
-            			url: 'http://demo.sc.chinaz.com/Files/DownLoad/webjs1/201806/jiaoben5973/images/3.png'
+            			url: '/static/banner03.jpg'
             		}, 
             	]
             }
@@ -64,6 +64,9 @@
 		width: 100%;
 		overflow: hidden;
 	}
+    .swipe img {
+        width: 100%;
+    }
     .xcy {
         text-align: center;
         padding: 20px 0; 
