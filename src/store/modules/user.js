@@ -26,10 +26,13 @@ const state = {
     }],
     isLogin: false,
     userInfo: {
-        username: '',
-        phone: '',
-        qq: '',
-        type: ''
+        head_image: '', // 头像
+        username: '', // 用户名
+        phone: '', // 手机号
+        qq: '', // QQ号
+        type: '', //用户类型
+        is_verify: '', // 认证状态
+        resource_uri: '', // 用户资源
     },
 }
 

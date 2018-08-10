@@ -5,7 +5,7 @@
                 <div class="title">取款金额</div>
                 <div class="price">
                     <div class="rmb">￥</div>
-                    <div class="text" @click="()=>{this.show = true}"><input type="text" v-model="val"></div>
+                    <div class="text" @click="()=>{this.show = true}"><input type="text" v-model="val" onfocus="this.blur();"></div>
                 </div>
                 <div class="tip" v-text="tips"></div>
                 <div class="yue" v-text="`余额 ${money}贝壳 (1贝壳=1元)`"></div>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import { Dialog, Toast } from 'vant';
+
 	export default {
         name: 'PutForward',
         data() {
@@ -64,6 +66,13 @@
                 } else {
                     this.tips = ''
                 }
+            },
+            show(newVal) {
+                if (this.show == false && this.val > 0 && this.val != '') {
+                    this.disabled = true
+                } else {
+                    this.disabled = false
+                }
             }
         },
         methods: {
@@ -90,7 +99,37 @@
                 this.val = val
             },
             putForward() {
-                console.log('click putForward')
+                let self = this;
+                let num = parseFloat(this.val)
+                console.log('this.disabled: ', this.disabled)
+                console.log('num: ', num)
+                console.log('num: ', typeof(num))
+                console.log('this.money: ', this.money)
+
+                if (this.disabled == true && num > 0 && num <= this.money) {
+                    Dialog.confirm({
+                        title: '提示',
+                        message: `你本次提现金额为${num}元`
+                    }).then(() => {
+                        Toast.loading({ mask: false, message: '提现中...' });
+                        new Promise((resolve, reject)=>{
+                            self.Axios.post('/api/v1/payment/cash_out/',{
+                                money: num * 100
+                            }).then(res=>{
+                                resolve(res)
+                            }).catch(err=>{
+                                reject(err)
+                            })
+                        }).then(res=>{
+                            // ↓
+                            console.log(res)
+                        }).catch(err=>{
+                            console.log(err)
+                        })
+                    }).catch(() => {
+                        Toast.fail('你取消了本次提现')
+                    });
+                }
             }
         }
 	}
@@ -126,6 +165,8 @@
         border: none;
         font-size: 30px;
         line-height: 50px;
+        background-color: FFFFFF;
+        color: #000000;
     }
     .title {
         font-size: 0.75rem;

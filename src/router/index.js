@@ -14,9 +14,16 @@ import MessageContent from '@/independentpage/MessageContent'
 
 import myOrder from '@/independentpage/myOrder/index'
 
-import myWallet from '@/independentpage/myWallet/index'
-import PutForward from '@/independentpage/myWallet/PutForward'
+//角色管理
+import myRoleControl from '@/independentpage/myRoleControl/index'
+import addRole from '@/independentpage/myRoleControl/addRole'
 
+// 我的钱包
+import myWallet from '@/independentpage/myWallet/index'
+import PutForward from '@/independentpage/myWallet/PutForward' // 提现
+import TransactionRecord from '@/independentpage/myWallet/TransactionRecord' // 交易记录
+
+// 优惠券
 import myCoupon from '@/independentpage/myCoupon/index'
 import Recommend from '@/independentpage/Recommend/index'
 
@@ -34,16 +41,28 @@ import Calculator from '@/independentpage/Authentication/Calculator' // 佣金�
 
 // 客服与帮助
 import serviceAndHelp from '@/independentpage/serviceAndHelp/index'
-import bossAsk from '@/independentpage/serviceAndHelp/bossAsk'
-import godAsk from '@/independentpage/serviceAndHelp/godAsk'
-import bossCourse from '@/independentpage/serviceAndHelp/bossCourse'
-import headCourse from '@/independentpage/serviceAndHelp/headCourse'
-import godCourse from '@/independentpage/serviceAndHelp/godCourse'
-import didiTeam from '@/independentpage/serviceAndHelp/didiTeam'
-import callHelp from '@/independentpage/serviceAndHelp/callHelp'
-import cleanCache from '@/independentpage/serviceAndHelp/cleanCache'
+import bossAsk from '@/independentpage/serviceAndHelp/bossAsk' //老板问答
+import godAsk from '@/independentpage/serviceAndHelp/godAsk'  //大神问答
+import bossCourse from '@/independentpage/serviceAndHelp/bossCourse' // 老板教程
+import headCourse from '@/independentpage/serviceAndHelp/headCourse' // 团长教程
+import godCourse from '@/independentpage/serviceAndHelp/godCourse' // 大神教程
+import didiTeam from '@/independentpage/serviceAndHelp/didiTeam' //滴滴团队
+import callHelp from '@/independentpage/serviceAndHelp/callHelp' //联系我
+import cleanCache from '@/independentpage/serviceAndHelp/cleanCache' //清除缓存
 
 Vue.use(Router)
+
+
+// 我的钱包
+const myWalletList = [{
+  path: 'PutForward',
+  name: 'PutForward',
+  component: PutForward
+}, {
+  path: 'TransactionRecord',
+  name: 'TransactionRecord',
+  component: TransactionRecord
+}]
 
 // 大神认证
 const greatGodList = [{
@@ -84,6 +103,7 @@ const greatGodList = [{
   component: Calculator
 }]
 
+// 客服与帮助
 const serviceAndHelpList = [{
   path: 'bossAsk',
   name: 'bossAsk',
@@ -117,6 +137,18 @@ const serviceAndHelpList = [{
   name: 'cleanCache',
   component: cleanCache
 }]
+
+// 角色管理
+const myRoleControlList = [{
+  path: 'myRoleControl',
+  name: 'myRoleControl',
+  component: myRoleControl
+}, {
+  path: 'addRole',
+  name: 'addRole',
+  component: addRole
+}]
+
 
 export default new Router({
   mode: 'history',
@@ -189,13 +221,11 @@ export default new Router({
       path: '/subpage',
       name: 'subpage',
       component: subpage,
-      children: [
-        {
-          path: 'PutForward',
-          name: 'PutForward',
-          component: PutForward
-        }
-      ].concat(greatGodList).concat(serviceAndHelpList)
+      children: []
+        .concat(greatGodList)
+        .concat(serviceAndHelpList)
+        .concat(myWalletList)
+        .concat(myRoleControlList)
     }
   ]
 })

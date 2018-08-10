@@ -32,7 +32,7 @@
 				this.$router.push({name: 'PutForward', query: {title: '提现'}})
 			},
 			transactionRecord() {
-				Toast('点击查看交易记录');
+				this.$router.push({name: 'TransactionRecord', query: {title: '交易记录'}})
 			},
 			msg(val) {
 				Toast(val);
