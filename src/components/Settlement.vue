@@ -13,7 +13,7 @@
 			<div class="item price" v-text="`价格：${price}元`"></div>
 			<div class="item yhq">优惠券已减<span class="red">{{yhq}}</span>元</div>
 		</div>
-		<div class="btn">我要打团</div>
+		<div class="btn" @click="gotoDatuan">我要打团</div>
 
 		<van-picker
 			show-toolbar
@@ -152,6 +152,21 @@
 			onJueseChange(picker, value, index) {
 				this.jueseSelection = value.text
 				this.jueseSelectionId = index
+		    },
+		    gotoDatuan () {
+		    	if (this.juese == '') {
+		    		this.$toast('请先选择角色');
+		    		return
+		    	}
+		    	this.$dialog.confirm({
+				  title: '标题',
+				  message: '弹窗内容'
+				}).then(() => {
+				  // on confirm
+				  this.$router.push({name: 'createTeam'})
+				}).catch(() => {
+				  // on cancel
+				});
 		    }
 		},
 		watch: {

@@ -50,6 +50,9 @@ import didiTeam from '@/independentpage/serviceAndHelp/didiTeam' //滴滴团队
 import callHelp from '@/independentpage/serviceAndHelp/callHelp' //联系我
 import cleanCache from '@/independentpage/serviceAndHelp/cleanCache' //清除缓存
 
+// 我要打团
+import createTeam from '@/independentpage/createTeam' //清除缓存
+
 Vue.use(Router)
 
 
@@ -149,6 +152,13 @@ const myRoleControlList = [{
   component: addRole
 }]
 
+// 我要打团
+const createTeamList = [{
+  path: 'createTeam',
+  name: 'createTeam',
+  component: createTeam
+}]
+
 
 export default new Router({
   mode: 'history',
@@ -226,6 +236,7 @@ export default new Router({
         .concat(serviceAndHelpList)
         .concat(myWalletList)
         .concat(myRoleControlList)
+        .concat(createTeamList)
     }
   ]
 })
