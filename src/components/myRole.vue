@@ -5,7 +5,7 @@
             <div class="iconfont icon-you"></div>      
         </div>
         <div class="content">
-            <div class="item-default" v-for="item in roleList">
+            <div class="item-default" v-for="(item, index) in roleList" :key="index">
                 <div class="box">
                     <img :src="item.header_img">
                 </div>
@@ -13,7 +13,7 @@
             </div>
             <div class="item-default" @click="addRole">
                 <div class="box iconfont icon-tianjia"></div>
-                <div class="text">123</div>
+                <div class="text"></div>
             </div>
         </div>
 	</div>

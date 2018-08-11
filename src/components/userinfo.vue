@@ -50,9 +50,21 @@
                     self.$store.state.user.userInfo.phone = res.phone;
                     self.$store.state.user.userInfo.qq = res.qq;
                     self.$store.state.user.userInfo.type = res.type;
-                    self.$store.state.user.userInfo.money = res.money;
+					self.$store.state.user.userInfo.money = res.money;
+					if (self.isLogin = true) {
+						self.getServers(self, (err, servers)=>{
+							console.log(typeof(servers))
+							console.log(servers)
+							self.$store.state.serverAndJobs.servers = servers
+							// console.log(servers)
+							// console.log(serverInfo)
+							// self.$store.state.serverAndJobs.servers = servers
+							// self.$store.state.serverAndJobs.serverInfo = serverInfo
+						})
+					}
                 }
-            })
+			})
+			
 		},
 		methods: {
 			logOut() {

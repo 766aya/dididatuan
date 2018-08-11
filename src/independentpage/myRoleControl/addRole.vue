@@ -21,26 +21,57 @@
 		<div class="btn" :class="{'btn-false': disable==true, 'btn-true': disable==false}">
 			新建角色
 		</div>
+		<van-picker show-toolbar :show="isShow" :columns="columns" @confirm="onConfirm" @change="onChange" :loading="loading" />
 	</div>
 </template>
 
 <script>
+	import Vue from 'vue'
+	import { Toast } from 'vant';
+	import { Picker } from 'vant';
+	Vue.use(Picker);
+
+	var server = {'北京区': ['朝阳区'], '天津区': []};
+
 	export default {
 		name: 'addRole',
 		data() {
 			return {
-				disable: true
+				disable: true,
+				loading: true,
+				isShow: false,
+				columns: [
+					{
+						values: Object.keys(server),
+						className: 'column1'
+					},
+					{
+						values: server['北京区'],
+						className: 'column2',
+						defaultIndex: 0
+					}
+				]
 			}
 		},
 		created() {
+			// console.log(server)
 			let self = this;
-			new Promise((resolve, reject)=>{
-				self.Axios.get('/api/v1/game_server/').then(res=>{
-					console.log(res)
-				}).catch(err=>{
-					console.log(err)
-				})
+			self.getServers(self, (err, servers)=>{
+				let serverArray = Object.keys(servers)
+				for(let i=0; i<serverArray.length; i++) {
+					Vue.set(server, serverArray[i], servers[serverArray[i]])
+				}
+				this.loading = false;
 			})
+		},
+		methods: {
+			onChange(picker, values) {
+				picker.setColumnValues(1, server[values[0]]);
+				console.log(server[values[0]])
+			},
+			onConfirm(value, index) {
+				console.log(value, index)
+			}
 		}
 	}
 </script>
