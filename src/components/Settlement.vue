@@ -5,24 +5,36 @@
 		</div>
 		<div class="settlement-content">
 			<div class="text t1">选择副本：</div>
-			<div class="text t2" @click="()=>{this.FubenSelectionIsShow = true}">{{fuben}}</div>
+			<div class="text t2" @click="FubenSelectionIsShow = true">{{fuben}}</div>
 			<div class="text t2 iconfont icon-you"></div>
 			<div class="text t1">选择角色：</div>
-			<div class="text t2">{{juese}}</div>
+			<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
 			<div class="text t2 iconfont icon-you"></div>
 			<div class="item price" v-text="`价格：${price}元`"></div>
 			<div class="item yhq">优惠券已减<span class="red">{{yhq}}</span>元</div>
 		</div>
 		<div class="btn">我要打团</div>
+
 		<van-picker
 			show-toolbar
 			title="选择副本"
 			:columns="FubenSelectList"
-			@cancel="onCancel"
-			@confirm="onConfirm"
-			@change="onChange"
+			@cancel="FubenSelectionIsShow = false"
+			@confirm="onFubenConfirm"
+			@change="onFubenChange"
 			class="picker"
 			v-show="FubenSelectionIsShow"
+		/>
+
+		<van-picker
+			show-toolbar
+			title="选择角色"
+			:columns="JueseSelectList"
+			@cancel="JueseSelectionIsShow = false"
+			@confirm="onJueseConfirm"
+			@change="onJueseChange"
+			class="picker"
+			v-show="JueseSelectionIsShow"
 		/>
 	</div>
 </template>
@@ -89,9 +101,18 @@
 				juese: '',
 				JueseSelectList: [
 					{
-						
+						master_num: 1,
+						text: '1号角色',
+						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
+						rookie_num: 18
+					}, {
+						master_num: 1,
+						text: '2号角色',
+						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
+						rookie_num: 18
 					}
 				],
+				JueseSelectionIsShow: false,
 				price: 126.50,
 				yhq: 10,
 			}
@@ -115,17 +136,22 @@
 			})
 		},
 		methods: {
-			onCancel() {
-				this.FubenSelectionIsShow = false;
-			},
-			onConfirm() {
+			onFubenConfirm() {
 				this.FubenSelectionIsShow = false;
 				this.fuben = this.FubenSelection;
 				this.price = this.FubenSelectList[this.FubenSelectionId].price - this.yhq
 			},
-			onChange(picker, value, index) {
+			onFubenChange(picker, value, index) {
 				this.FubenSelection = value.text
 				this.FubenSelectionId = index
+		    },
+			onJueseConfirm() {
+				this.JueseSelectionIsShow = false;
+				this.juese = this.jueseSelection;
+			},
+			onJueseChange(picker, value, index) {
+				this.jueseSelection = value.text
+				this.jueseSelectionId = index
 		    }
 		},
 		watch: {

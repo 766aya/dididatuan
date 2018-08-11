@@ -45,7 +45,7 @@
 			return {
 				server: {},
 				serverName: '',
-				serversInfo: {},
+				serverInfo: {},
 				job: {},
 				jobName: '',
 				jobInfo: {},
@@ -78,7 +78,6 @@
 					defaultIndex: 0
 				}]
 				self.serverName = servers[Object.keys(servers)[0]][0]
-				console.log("serverInfo: ", self.serverInfo)
 				self.formData.server = self.serverInfo[0].children[0].resource_uri
 			})
 			self.getServers.getJobs(self, (err, jobs)=>{
@@ -104,12 +103,12 @@
 			},
 			onServerConfirm(value, index) {
 				let self = this
-				let serversInfo = this.serversInfo
+				let serverInfo = this.serverInfo
 				let serversUri = ''
-				let parentUri = serversInfo[index[0]]
+				let parentUri = serverInfo[index[0]]
 				if (parentUri.children.length > 0) {
-					serversUri = serversInfo[index[0]].children[index[1]].resource_uri
-					self.serverName = serversInfo[index[0]].children[index[1]].name
+					serversUri = serverInfo[index[0]].children[index[1]].resource_uri
+					self.serverName = serverInfo[index[0]].children[index[1]].name
 				} else {
 					serversUri = parentUri.resource_uri
 					self.serverName = parentUri.name
@@ -136,7 +135,21 @@
 				this.formData.career = jobUri
 			},
 			newRole () {
-				
+				let self = this
+				console.log("formData: ", this.formData)
+				Toast.loading({
+				  mask: false,
+				  message: '创建中...'
+				});
+				this.Axios.post('/api/v1/role/', this.formData).then(res=>{
+					console.log("res: ", res)
+					Toast.success('创建成功')
+					setTimeout(function () {
+						self.$router.push({name: 'User', query: {bar: 2}})
+					}, 1500)
+				}).catch(err=>{
+					Toast.fail('创建失败，请重试');
+				})
 			}
 		},
 		watch: {
