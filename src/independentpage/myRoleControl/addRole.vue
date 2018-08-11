@@ -31,22 +31,23 @@
 	import { Picker } from 'vant';
 	Vue.use(Picker);
 
-	var server = {'北京区': ['朝阳区'], '天津区': []};
+	// var server = this.$store.state.serverAndJobs.servers;
 
 	export default {
 		name: 'addRole',
 		data() {
 			return {
+				server: this.$store.state.serverAndJobs.servers,
 				disable: true,
 				loading: true,
 				isShow: false,
 				columns: [
 					{
-						values: Object.keys(server),
+						values: Object.keys(this.server),
 						className: 'column1'
 					},
 					{
-						values: server['北京区'],
+						values: this.server['北京区'],
 						className: 'column2',
 						defaultIndex: 0
 					}
@@ -59,10 +60,11 @@
 			self.getServers(self, (err, servers)=>{
 				let serverArray = Object.keys(servers)
 				for(let i=0; i<serverArray.length; i++) {
-					Vue.set(server, serverArray[i], servers[serverArray[i]])
+					Vue.set(self.$store.state.serverAndJobs.servers, serverArray[i], servers[serverArray[i]])
 				}
 				this.loading = false;
 			})
+			console.log(self.$store.state.serverAndJobs.servers)
 		},
 		methods: {
 			onChange(picker, values) {

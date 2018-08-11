@@ -1,5 +1,5 @@
 const state = {
-    servers: {},
+    servers: {'xxx': ['xxx'], 'xxx': ['xxx', 'yyy']},
     serverInfo: '',
     jobs: [],
     jobInfo: '',
