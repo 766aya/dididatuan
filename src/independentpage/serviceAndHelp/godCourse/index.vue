@@ -7,7 +7,7 @@
 
 <script>
     import { Dialog, Toast } from 'vant';
-    
+
     export default {
         name: 'godCourse',
         data() {
@@ -23,6 +23,7 @@
                     Toast('浏览时长不足！')
                 } else {
                     Toast('已完成！')
+                    this.$router.go(-1)
                 }
             }
         }

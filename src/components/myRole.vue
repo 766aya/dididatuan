@@ -7,7 +7,7 @@
         <div class="content">
             <div class="item-default" v-for="(item, index) in roleList" :key="index">
                 <div class="box">
-                    <img :src="item.header_img">
+                    <img :src="defaultImg">
                 </div>
                 <div class="text" v-text="item.roleName"></div>
             </div>
@@ -20,24 +20,43 @@
 </template>
 
 <script>
+    import { Dialog, Toast } from 'vant';
 	export default {
         name: 'myRole',
         data() {
             return {
-                roleList: [{
-                    header_img: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg',
-                    roleName: '11111'
-                }, {
-                    header_img: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg',
-                    roleName: '22222'
-                }, {
-                    header_img: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg',
-                    roleName: '33333'
-                }]
+                roleList: [],
+                defaultImg: 'http://p1.music.126.net/JpGpHfy_DUAWeuIQHrjYbg==/1418370012865049.jpg'
             }
         },
         created() {
-            // arr.splice(0,2)
+            let self = this;
+            if (self.$store.state.user.isLogin == true) {
+				this.getRoleInfo(self, (err, res)=>{
+					if (!err && res._status==0) {
+                        self.$store.state.user.roleList = []
+                        let i = 0;
+						res.objects.forEach(element =>{
+                            i++;
+							let data = {
+								img: element.career.image, // 职业图片
+								career: element.career.name, // 职业信息
+								careerUri: element.career.resource_uri, // 职业信息
+								roleName: element.name, // 角色名
+								roleUri: element.resource_uri, // 角色资源
+								serverName: element.server.name, // 服务器名
+								serverUri: element.server.resource_uri, // 服务器资源
+							}
+                            self.$store.state.user.roleList.push(data)
+                            if (i<4) {
+                                self.roleList.push(data)
+                            }
+						})
+					}
+				})
+			} else {
+				Toast('您还未登陆，无法获取角色信息！')
+			}
         },
         methods: {
             roleControl() {

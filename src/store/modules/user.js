@@ -34,6 +34,7 @@ const state = {
         is_verify: '', // 认证状态
         resource_uri: '', // 用户资源
     },
+    roleList: []
 }
 
 const getters = {

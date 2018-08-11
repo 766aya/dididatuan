@@ -17,6 +17,7 @@ Vue.use(Vant);
 import Axios from 'axios'
 import QueryLanding from '@/assets/queryLandingStatus';
 import getServers from '@/assets/getServers';
+import getRoleInfo from '@/assets/getRoleInfo';
 
 // 全局混入
 Vue.mixin({
@@ -25,6 +26,7 @@ Vue.mixin({
 			Axios: Axios,
 			QueryLanding: QueryLanding,
 			getServers: getServers,
+			getRoleInfo: getRoleInfo,
 		}
 	}
 })

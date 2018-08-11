@@ -56,15 +56,10 @@
 							console.log(typeof(servers))
 							console.log(servers)
 							self.$store.state.serverAndJobs.servers = servers
-							// console.log(servers)
-							// console.log(serverInfo)
-							// self.$store.state.serverAndJobs.servers = servers
-							// self.$store.state.serverAndJobs.serverInfo = serverInfo
 						})
 					}
                 }
 			})
-			
 		},
 		methods: {
 			logOut() {

@@ -164,9 +164,6 @@
 </script>
 
 <style scoped>
-	#addRole {
-		/*background-color: #333333;*/
-	}
 	.content {
 		display: grid;
 		grid-template-rows: 40px 40px 40px;
