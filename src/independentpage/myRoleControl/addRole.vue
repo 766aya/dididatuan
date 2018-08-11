@@ -4,24 +4,32 @@
 			<div class="item-box">
 				<div class="title">角色名</div>
 				<div style="text-align: right;">
-					<input type="text" class="input" placeholder="请输入">
+					<input type="text" class="input" placeholder="请输入" v-model="formData.name">
 				</div>
 			</div>
-			<div class="select-box">
+			<div class="select-box" @click="isServerShow=true">
 				<div class="title">服务器</div>
-				<div class="text" v-text="'浙江4/5区'"></div>
+				<div class="text" v-text="serverName"></div>
 				<div class="icon iconfont icon-you"></div>
 			</div>
-			<div class="select-box">
+			<div class="select-box" @click="isJobShow=true">
 				<div class="title">职业</div>
-				<div class="text" v-text="'剑神'"></div>
+				<div class="text" v-text="jobName"></div>
 				<div class="icon iconfont icon-you"></div>
 			</div>
 		</div>
-		<div class="btn" :class="{'btn-false': disable==true, 'btn-true': disable==false}">
+		<div class="btn" @click="newRole" :class="{'btn-false': disable==true, 'btn-true': disable==false}">
 			新建角色
 		</div>
-		<van-picker show-toolbar :show="isShow" :columns="columns" @confirm="onConfirm" @change="onChange" :loading="loading" />
+
+		<van-popup v-model="isServerShow" position="bottom">
+			<van-picker show-toolbar :columns="serverColumns" @confirm="onServerConfirm" @change="onServerChange" @cancel="isServerShow=false" :loading="loading" />
+		</van-popup>
+
+		<van-popup v-model="isJobShow" position="bottom">
+			<van-picker show-toolbar :columns="jobColumns" @confirm="onJobConfirm" @change="onJobChange" @cancel="isServerShow=false" :loading="loading" />
+		</van-popup>
+		
 	</div>
 </template>
 
@@ -31,48 +39,112 @@
 	import { Picker } from 'vant';
 	Vue.use(Picker);
 
-	// var server = this.$store.state.serverAndJobs.servers;
-
 	export default {
 		name: 'addRole',
 		data() {
 			return {
-				server: this.$store.state.serverAndJobs.servers,
+				server: {},
+				serverName: '',
+				serversInfo: {},
+				job: {},
+				jobName: '',
+				jobInfo: {},
 				disable: true,
 				loading: true,
-				isShow: false,
-				columns: [
-					{
-						values: Object.keys(this.server),
-						className: 'column1'
-					},
-					{
-						values: this.server['北京区'],
-						className: 'column2',
-						defaultIndex: 0
-					}
-				]
+				isServerShow: false,
+				isJobShow: false,
+				serverColumns: [],
+				jobColumns: [],
+				formData: {
+					name: '',
+					server: '',
+					career: ''
+				}
 			}
 		},
 		created() {
-			// console.log(server)
 			let self = this;
-			self.getServers(self, (err, servers)=>{
-				let serverArray = Object.keys(servers)
-				for(let i=0; i<serverArray.length; i++) {
-					Vue.set(self.$store.state.serverAndJobs.servers, serverArray[i], servers[serverArray[i]])
-				}
-				this.loading = false;
+			self.getServers.getServers(self, (err, servers)=>{
+				self.serverInfo = this.$store.state.serverAndJobs.serverInfo
+				self.server = servers;
+				self.$store.commit('getServers', servers)
+				self.loading = false;
+				self.serverColumns = [{
+					values: Object.keys(servers),
+					className: 'column1'
+				}, {
+					values: servers[Object.keys(servers)[0]],
+					className: 'column2',
+					defaultIndex: 0
+				}]
+				self.serverName = servers[Object.keys(servers)[0]][0]
+				console.log("serverInfo: ", self.serverInfo)
+				self.formData.server = self.serverInfo[0].children[0].resource_uri
 			})
-			console.log(self.$store.state.serverAndJobs.servers)
+			self.getServers.getJobs(self, (err, jobs)=>{
+				self.jobInfo = this.$store.state.serverAndJobs.jobInfo
+				self.job = jobs;
+				self.$store.commit('getServers', jobs)
+				self.loading = false;
+				self.jobColumns = [{
+					values: Object.keys(jobs),
+					className: 'column1'
+				}, {
+					values: jobs[Object.keys(jobs)[0]],
+					className: 'column2',
+					defaultIndex: 0
+				}]
+				self.jobName = jobs[Object.keys(jobs)[0]][0]
+				self.formData.career = self.jobInfo[0].children[0].resource_uri
+			})
 		},
 		methods: {
-			onChange(picker, values) {
-				picker.setColumnValues(1, server[values[0]]);
-				console.log(server[values[0]])
+			onServerChange(picker, values) {
+				picker.setColumnValues(1, this.server[values[0]]);
 			},
-			onConfirm(value, index) {
-				console.log(value, index)
+			onServerConfirm(value, index) {
+				let self = this
+				let serversInfo = this.serversInfo
+				let serversUri = ''
+				let parentUri = serversInfo[index[0]]
+				if (parentUri.children.length > 0) {
+					serversUri = serversInfo[index[0]].children[index[1]].resource_uri
+					self.serverName = serversInfo[index[0]].children[index[1]].name
+				} else {
+					serversUri = parentUri.resource_uri
+					self.serverName = parentUri.name
+				}
+				self.isServerShow = false
+				this.formData.server = serversUri
+			},
+			onJobChange (picker, values) {
+				picker.setColumnValues(1, this.job[values[0]]);
+			},
+			onJobConfirm (value, index) {
+				let self = this
+				let jobInfo = this.jobInfo
+				let jobUri = ''
+				let parentJob = jobInfo[index[0]]
+				if (parentJob.children.length > 0) {
+					jobUri = jobInfo[index[0]].children[index[1]].resource_uri
+					self.jobName = jobInfo[index[0]].children[index[1]].name
+				} else {
+					jobUri = parentJob.resource_uri
+					self.jobName = parentJob.name
+				}
+				self.isJobShow = false
+				this.formData.career = jobUri
+			},
+			newRole () {
+				
+			}
+		},
+		watch: {
+			formData: {
+				handler (newVal) {
+					this.disable = newVal.name ? false : true
+				},
+            	deep: true
 			}
 		}
 	}
