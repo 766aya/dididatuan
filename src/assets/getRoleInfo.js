@@ -1,5 +1,7 @@
-const getRoleInfo = (self, cb)=>{
+const getRoleInfo = (self, cb) => {
+    console.log('self: ', self)
     new Promise((resolve, reject)=>{
+        console.log('getRoleInfo')
         self.Axios.get('/api/v1/role/').then(res=>{
             if (res.data._status == 0 && res.status == 200) {
                 resolve(res.data)

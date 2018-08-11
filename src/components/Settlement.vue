@@ -205,7 +205,7 @@
 	.yhq {
 		line-height: 20px;
 		font-size: 0.6rem;
-		color: #DDDDDD；
+		color: #DDDDDD;
 	}
 	.red {
 		color: #FF0036;
