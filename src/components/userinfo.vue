@@ -53,8 +53,6 @@
 					self.$store.state.user.userInfo.money = res.money;
 					if (self.isLogin = true) {
 						self.getServers(self, (err, servers)=>{
-							console.log(typeof(servers))
-							console.log(servers)
 							self.$store.state.serverAndJobs.servers = servers
 						})
 					}
