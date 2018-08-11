@@ -7,7 +7,7 @@
 			</div>
 			<div></div>
 			<div class="coin-item">
-				<div class="title">贝壳<span class="iconfont icon-yiwen title icon" @click="msg('大神收益将存入贝壳中，达到一定金额后可以提现')"></span></div>
+				<div class="title">团币<span class="iconfont icon-yiwen title icon" @click="msg('大神收益将存入团币中，达到一定金额后可以提现')"></span></div>
 				<div class="num" v-text="shellcoin">0</div>
 			</div>
 			<div class="put-forward iconfont icon-tixian" @click="putForward">提现</div>

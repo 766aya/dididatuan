@@ -49,49 +49,49 @@
 					{
 						master_num: 1,
 						text: '安图恩-团队',
-						price: 150,
+						price: 5,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '卢克-团队',
-						price: 140,
+						price: 6,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '超时空',
-						price: 130,
+						price: 10,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '安图恩-每日',
-						price: 120,
+						price: 3,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '卢克-每日',
-						price: 110,
+						price: 4,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '卢克-团队(独享专车)',
-						price: 100,
+						price: 12,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '安图恩-每日(独享专车)',
-						price: 160,
+						price: 5,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}, {
 						master_num: 1,
 						text: '卢克-每日(独享专车)',
-						price: 170,
+						price: 7,
 						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
 						rookie_num: 18
 					}
@@ -114,7 +114,7 @@
 				],
 				JueseSelectionIsShow: false,
 				price: 126.50,
-				yhq: 10,
+				yhq: 1,
 			}
 		},
 		created() {
@@ -232,6 +232,9 @@
 	.t2 {
 		text-align: right;
 		color: #AAAAAA;
+		font-size: 0.9rem;
+	}
+	.t2::before{
 		font-size: 0.75rem;
 	}
 	.btn {

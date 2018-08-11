@@ -52,6 +52,7 @@
     .title {
         padding-left: 10px;
         line-height: 40px;
+        font-weight: 700;
     }
     .menu {
         line-height: 50px;

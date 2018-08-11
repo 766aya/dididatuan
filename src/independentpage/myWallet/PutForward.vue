@@ -8,7 +8,7 @@
                     <div class="text" @click="()=>{this.show = true}"><input type="text" v-model="val" onfocus="this.blur();"></div>
                 </div>
                 <div class="tip" v-text="tips"></div>
-                <div class="yue" v-text="`余额 ${money}贝壳 (1贝壳=1元)`"></div>
+                <div class="yue" v-text="`余额 ${money}团币 (1团币=1元)`"></div>
             </div>
             <div class="submit">
                 <a href="javascript:;" @click="putForward" :disabled="disabled" :class="{'btn-true': disabled==true, 'btn-err': disabled==false}">提现</a>
@@ -68,7 +68,7 @@
                 }
             },
             show(newVal) {
-                if (this.show == false && this.val > 0 && this.val != '') {
+                if (this.show == false && this.val > 0 && this.val != '' && !this.tips) {
                     this.disabled = true
                 } else {
                     this.disabled = false
@@ -101,12 +101,8 @@
             putForward() {
                 let self = this;
                 let num = parseFloat(this.val)
-                console.log('this.disabled: ', this.disabled)
-                console.log('num: ', num)
-                console.log('num: ', typeof(num))
-                console.log('this.money: ', this.money)
 
-                if (this.disabled == true && num > 0 && num <= this.money) {
+                if (this.disabled == true && num > 0 && num <= this.money && tips) {
                     Dialog.confirm({
                         title: '提示',
                         message: `你本次提现金额为${num}元`
@@ -169,18 +165,18 @@
         color: #000000;
     }
     .title {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
         line-height: 25px;
         color: #C5C5C5;
     }
     .yue {
         color: #C5C5C5;
-        font-size: 0.5rem;
+        font-size: 0.8rem;
         line-height: 20px;
     }
     .tip {
         color: #FF0036;
-        font-size: 10px;
+        font-size: 0.8rem;
     }
     .submit {
         padding: 0 35px;
