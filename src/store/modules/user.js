@@ -41,7 +41,9 @@ const getters = {
 }
 
 const mutations = {
-    
+    getRoleList (state, data) {
+        state.roleList = data
+    }
 }
 
 const actions = {

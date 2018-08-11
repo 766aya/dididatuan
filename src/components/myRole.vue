@@ -33,26 +33,7 @@
             let self = this;
             if (self.$store.state.user.isLogin == true) {
 				this.getRoleInfo(self, (err, res)=>{
-					if (!err && res._status==0) {
-                        self.$store.state.user.roleList = []
-                        let i = 0;
-						res.objects.forEach(element =>{
-                            i++;
-							let data = {
-								img: element.career.image, // 职业图片
-								career: element.career.name, // 职业信息
-								careerUri: element.career.resource_uri, // 职业信息
-								roleName: element.name, // 角色名
-								roleUri: element.resource_uri, // 角色资源
-								serverName: element.server.name, // 服务器名
-								serverUri: element.server.resource_uri, // 服务器资源
-							}
-                            self.$store.state.user.roleList.push(data)
-                            if (i<4) {
-                                self.roleList.push(data)
-                            }
-						})
-					}
+                    self.roleList = res.slice(0, 3)
 				})
 			} else {
 				Toast('您还未登陆，无法获取角色信息！')

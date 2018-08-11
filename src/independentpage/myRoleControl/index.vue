@@ -39,21 +39,7 @@
 			}).then((err, res)=>{
 				if (self.$store.state.user.isLogin == true) {
 					this.getRoleInfo(self, (err, res)=>{
-						if (!err && res.data._status==0) {
-							self.$store.state.user.roleList = []
-							res.objects.forEach(element =>{
-								let data = {
-									img: element.career.image, // 职业图片
-									career: element.career.name, // 职业信息
-									careerUri: element.career.resource_uri, // 职业信息
-									roleName: element.name, // 角色名
-									roleUri: element.resource_uri, // 角色资源
-									serverName: element.server.name, // 服务器名
-									serverUri: element.server.resource_uri, // 服务器资源
-								}
-								self.$store.state.user.roleList.push(data)
-							})
-						}
+						self.roleList = self.$store.state.user.roleList
 					})
 				}
 			}).catch(err=>{
@@ -73,9 +59,9 @@
 					self.Axios.delete(uri).then(res=>{
 						if (res.data._status == 0) {
 							Toast.success('删除角色成功！')
-							setTimeout(()=>{
-								location.reload()
-							}, 1000)
+							this.getRoleInfo(self, (err, res)=>{
+			                    self.roleList = this.$store.state.user.roleList
+							})
 						}else{
 							Toast.fail('删除角色失败！')
 						}
