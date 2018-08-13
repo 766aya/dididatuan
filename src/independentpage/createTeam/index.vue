@@ -11,7 +11,7 @@
         </div>
         <div class="item">
             <div class="lside">原价</div>
-            <div class="rside" v-text="`￥${info.Oprice}元`">{{}}</div>
+            <div class="rside" v-text="`￥${info.Oprice}元`"></div>
         </div>
         <div class="item">
             <div class="lside">优惠券</div>
@@ -19,7 +19,7 @@
         </div>
         <div class="item">
             <div class="lside">优惠金额</div>
-            <div class="rside" v-text="`￥${info.amount}元`"></div>
+            <div class="rside" v-text="`￥${info.amount/100}元`"></div>
         </div>
         <div class="title">支付方式</div>
         <div class="pay" @click="payWay=1">
@@ -89,8 +89,7 @@
         methods: {
             onChange (index) {
                 this.chosenCoupon = index;
-                this.isCouponShow = false
-                console.log("coupon: ", this.coupon)
+                this.isCouponShow = false;
                 if (index === -1) {
                     this.info.Coupon = '不使用优惠券'
                     return
@@ -108,6 +107,7 @@
     #createTeam {
         display: grid;
         grid-auto-rows: 50px;
+        padding-bottom: 50px;
     }
     .item {
         display: grid;
