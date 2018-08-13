@@ -10,7 +10,7 @@
 			<div class="text t1">选择角色：</div>
 			<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
 			<div class="text t2 iconfont icon-you"></div>
-			<div class="item price" v-text="`价格：${price}元`"></div>
+			<div class="item price" v-text="`价格：${price/100}元`"></div>
 			<div class="item yhq">优惠券已减 <span class="red">{{yhq}}</span> 元</div>
 		</div>
 		<div class="btn" @click="gotoDatuan">我要打团</div>
