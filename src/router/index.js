@@ -51,7 +51,9 @@ import callHelp from '@/independentpage/serviceAndHelp/callHelp' //联系我
 import cleanCache from '@/independentpage/serviceAndHelp/cleanCache' //清除缓存
 
 // 我要打团
-import createTeam from '@/independentpage/createTeam' //清除缓存
+import createTeam from '@/independentpage/createTeam' // 创建队伍
+import matchTeam from '@/independentpage/createTeam/matchTeam' // 寻找队伍
+
 
 Vue.use(Router)
 
@@ -157,6 +159,10 @@ const createTeamList = [{
   path: 'createTeam',
   name: 'createTeam',
   component: createTeam
+}, {
+  path: 'matchTeam',
+  name: 'matchTeam',
+  component: matchTeam
 }]
 
 

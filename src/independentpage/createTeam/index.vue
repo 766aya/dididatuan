@@ -86,7 +86,7 @@
                 this.info.Coupon = this.coupon.list[index].name
             },
             onSubmit () {
-                
+                this.$router.push({name: 'matchTeam'})
             }
         }
     }
