@@ -44,6 +44,7 @@
         <!-- 优惠券列表 -->
         <van-popup v-model="isCouponShow" position="bottom">
           <van-coupon-list
+            :show-exchange-bar="false"
             :coupons="coupon.list"
             :chosen-coupon="chosenCoupon"
             @change="onChange"
@@ -62,7 +63,7 @@
                     fuben: '副本',
                     Oprice: '原价',
                     Coupon: '请选择优惠券',
-                    amount: 100
+                    amount: 0
                 },
                 payWay: 1,
                 coupon: this.$store.state.coupon,
@@ -73,7 +74,7 @@
         },
         computed: {
             price() {
-                return this.$route.query.fubenPrice - this.info.amount
+                return this.$route.query.fubenPrice - this.info.amount*100
             }
         },
         created() {
@@ -90,7 +91,8 @@
             onChange (index) {
                 this.chosenCoupon = index;
                 this.isCouponShow = false
-                console.log("coupon: ", this.coupon)
+                this.info.amount = this.coupon.list[index].value/100
+                console.log("coupon: ", this.info)
                 if (index === -1) {
                     this.info.Coupon = '不使用优惠券'
                     return
