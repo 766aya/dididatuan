@@ -12,8 +12,8 @@ const state = {
         name: '老人礼-卢克券',
         start_at: '1489104000',
         end_at: 1514592000,
-        value: 150,
-        denominations: 150,
+        value: 250,
+        denominations: 250,
         origin_condition: 0
     }]
 }
