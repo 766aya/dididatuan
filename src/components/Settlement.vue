@@ -45,81 +45,18 @@
 		data() {
 			return {
 				fuben: '',
-				FubenSelectList: [
-					{
-						master_num: 1,
-						text: '安图恩-团队',
-						price: 5,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '卢克-团队',
-						price: 6,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '超时空',
-						price: 10,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '安图恩-每日',
-						price: 3,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '卢克-每日',
-						price: 4,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '卢克-团队(独享专车)',
-						price: 12,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '安图恩-每日(独享专车)',
-						price: 5,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '卢克-每日(独享专车)',
-						price: 7,
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}
-				],
+				FubenSelectList: [],
 				FubenSelectionIsShow: false,
 				FubenSelectionId: 0,
 				juese: '',
-				JueseSelectList: [
-					{
-						master_num: 1,
-						text: '1号角色',
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}, {
-						master_num: 1,
-						text: '2号角色',
-						resource_uri: '/api/v1/dungeon/56a38dce-6924-4a98-8128-06b7bba55e07/',
-						rookie_num: 18
-					}
-				],
+				JueseSelectList: [],
 				JueseSelectionIsShow: false,
-				price: 126.50,
-				yhq: 1,
+				price: 0,
+				yhq: 0,
 			}
 		},
 		created() {
 			let self = this;
-			
 			new Promise((resolve, reject)=>{
 				this.Axios.get('/api/v1/dungeon/').then(res=>{
 					resolve(res)
@@ -127,27 +64,54 @@
 					reject(err)
 				})
 			}).then(res=>{
-				// console.log(res.data.objects)
-				// self.FubenSelectList = res.data.objects
-				self.fuben = self.FubenSelectList[0].text
-				self.price = self.FubenSelectList[0].price - self.yhq
+				if (res.data._status == 0) {
+					res.data.objects.forEach(data=>{
+						let ls = {
+							master_num: data.master_num,
+							text: data.name,
+							price: data.price,
+							resource_uri: data.resource_uri,
+							rookie_num: data.rookie_num
+						}
+						self.FubenSelectList.push(ls)
+					})
+					self.fuben = self.FubenSelectList[0].text
+					self.price = self.FubenSelectList[0].price
+				}
 			}).catch(err=>{
 				console.log(err)
 			})
+			this.QueryLanding(self, (err, res)=>{
+                if (!err) {
+                	self.$store.state.user.isLogin = true;
+                    if (self.$store.state.user.isLogin == true) {
+                        this.getRoleInfo(self, (err, res)=>{
+                        	res.forEach(item=>{
+	                        	let data = {
+	                        		career : "子职业2" careerUri : "/api/v1/game_career/86b87359-6991-4b48-b76b-597daeff0ac2/" img : "" roleName : "0991故事与你" roleUri : "/api/v1/role/6ac01a26-b047-454f-83a5-6aa2b9cd3e83/" serverName : "朝阳区" serverUri : "/api/v1/game_server/bf5e5ddf-7566-4786-99f6-9ee41324b203/" 	                        	}
+                        	})
+                            self.JueseSelectList.push(data)
+                        })
+                    } else {
+                        Toast('您还未登陆，无法获取角色信息！')
+                    }
+                }
+            })
 		},
 		methods: {
-			onFubenConfirm() {
+			onFubenConfirm(val, index) {
 				this.FubenSelectionIsShow = false;
-				this.fuben = this.FubenSelection;
-				this.price = this.FubenSelectList[this.FubenSelectionId].price - this.yhq
+				this.fuben = this.FubenSelection[index].text;
+				this.price = this.FubenSelectList[index].price - this.yhq
 			},
 			onFubenChange(picker, value, index) {
 				this.FubenSelection = value.text
 				this.FubenSelectionId = index
+				console.log('val: ', val)
 		    },
-			onJueseConfirm() {
+			onJueseConfirm(val, index) {
 				this.JueseSelectionIsShow = false;
-				this.juese = this.jueseSelection;
+				// this.juese = this.jueseSelection[index];
 			},
 			onJueseChange(picker, value, index) {
 				this.jueseSelection = value.text
@@ -162,7 +126,6 @@
 				  title: '标题',
 				  message: '弹窗内容'
 				}).then(() => {
-				  // on confirm
 				  this.$router.push({name: 'createTeam'})
 				}).catch(() => {
 				  // on cancel
@@ -170,9 +133,7 @@
 		    }
 		},
 		watch: {
-			FubenSelection(val) {
-				console.log(val)
-			}
+
 		}
 	}
 </script>

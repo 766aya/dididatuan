@@ -31,13 +31,18 @@
         },
         created() {
             let self = this;
-            if (self.$store.state.user.isLogin == true) {
-				this.getRoleInfo(self, (err, res)=>{
-                    self.roleList = res.slice(0, 3)
-				})
-			} else {
-				Toast('您还未登陆，无法获取角色信息！')
-			}
+            this.QueryLanding(self, (err, res)=>{
+                if (!err) {
+                    self.$store.state.user.isLogin = true;
+                    if (self.$store.state.user.isLogin == true) {
+                        this.getRoleInfo(self, (err, res)=>{
+                            self.roleList = res.slice(0, 3)
+                        })
+                    } else {
+                        Toast('您还未登陆，无法获取角色信息！')
+                    }
+                }
+            })
         },
         methods: {
             roleControl() {
