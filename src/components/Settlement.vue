@@ -40,6 +40,7 @@
 </template>
 
 <script>
+	import { Dialog } from 'vant';
 	export default {
 		name: 'Settlement',
 		data() {
@@ -75,6 +76,7 @@
 						}
 						self.FubenSelectList.push(ls)
 					})
+					console.log(self.FubenSelectList)
 					self.fuben = self.FubenSelectList[0].text
 					self.price = self.FubenSelectList[0].price
 				}
@@ -87,10 +89,19 @@
                     if (self.$store.state.user.isLogin == true) {
                         this.getRoleInfo(self, (err, res)=>{
                         	res.forEach(item=>{
+								console.log(item)
 	                        	let data = {
-	                        		career : "子职业2" careerUri : "/api/v1/game_career/86b87359-6991-4b48-b76b-597daeff0ac2/" img : "" roleName : "0991故事与你" roleUri : "/api/v1/role/6ac01a26-b047-454f-83a5-6aa2b9cd3e83/" serverName : "朝阳区" serverUri : "/api/v1/game_server/bf5e5ddf-7566-4786-99f6-9ee41324b203/" 	                        	}
-                        	})
-                            self.JueseSelectList.push(data)
+									text: item.career,
+									careerUri : item.careerUri,
+									img : item.img,
+									roleName: item.roleName,
+									roleUri:item.roleUri,
+									serverName: item.serverName,
+									serverUri : item.serverUri
+								}
+                            	self.JueseSelectList.push(data)
+							})
+							self.juese = self.JueseSelectList[0].text
                         })
                     } else {
                         Toast('您还未登陆，无法获取角色信息！')
@@ -101,17 +112,15 @@
 		methods: {
 			onFubenConfirm(val, index) {
 				this.FubenSelectionIsShow = false;
-				this.fuben = this.FubenSelection[index].text;
+				this.fuben = val.text;
 				this.price = this.FubenSelectList[index].price - this.yhq
 			},
 			onFubenChange(picker, value, index) {
-				this.FubenSelection = value.text
+				this.fuben = value.text
 				this.FubenSelectionId = index
-				console.log('val: ', val)
 		    },
 			onJueseConfirm(val, index) {
 				this.JueseSelectionIsShow = false;
-				// this.juese = this.jueseSelection[index];
 			},
 			onJueseChange(picker, value, index) {
 				this.jueseSelection = value.text
@@ -121,14 +130,14 @@
 		    	if (this.juese == '') {
 		    		this.$toast('请先选择角色');
 		    		return
-		    	}
-		    	this.$dialog.confirm({
-				  title: '标题',
-				  message: '弹窗内容'
+				}
+				Dialog.confirm({
+					title: '提醒',
+					message: '亲爱的用户，为了减少等待时间，请您进入游戏并买好门票。\n为您找好队伍后，若您没有做好准备，您可能会被移除出队伍。\n（打团费用原路退还）'
 				}).then(() => {
-				  this.$router.push({name: 'createTeam'})
+					this.$router.push({name: 'createTeam'})
 				}).catch(() => {
-				  // on cancel
+					this.$toast('你取消了操作');
 				});
 		    }
 		},
