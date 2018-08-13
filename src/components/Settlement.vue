@@ -10,8 +10,8 @@
 			<div class="text t1">选择角色：</div>
 			<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
 			<div class="text t2 iconfont icon-you"></div>
-			<div class="item price" v-text="`价格：${price}元`"></div>
-			<div class="item yhq">优惠券已减<span class="red">{{yhq}}</span>元</div>
+			<div class="item price" v-text="`价格：${price/100}元`"></div>
+			<div class="item yhq">优惠券已减 <span class="red">{{yhq}}</span> 元</div>
 		</div>
 		<div class="btn" @click="gotoDatuan">我要打团</div>
 
@@ -51,6 +51,7 @@
 				FubenSelectionId: 0,
 				juese: '',
 				JueseSelectList: [],
+				JueseSelectionId: 0,
 				JueseSelectionIsShow: false,
 				price: 0,
 				yhq: 0,
@@ -76,7 +77,6 @@
 						}
 						self.FubenSelectList.push(ls)
 					})
-					console.log(self.FubenSelectList)
 					self.fuben = self.FubenSelectList[0].text
 					self.price = self.FubenSelectList[0].price
 				}
@@ -91,10 +91,10 @@
                         	res.forEach(item=>{
 								console.log(item)
 	                        	let data = {
-									text: item.career,
+									career: item.career,
 									careerUri : item.careerUri,
 									img : item.img,
-									roleName: item.roleName,
+									text: item.roleName,
 									roleUri:item.roleUri,
 									serverName: item.serverName,
 									serverUri : item.serverUri
@@ -123,19 +123,29 @@
 				this.JueseSelectionIsShow = false;
 			},
 			onJueseChange(picker, value, index) {
-				this.jueseSelection = value.text
-				this.jueseSelectionId = index
+				this.juese = value.text
+				this.JueseSelectionId = index
 		    },
 		    gotoDatuan () {
 		    	if (this.juese == '') {
 		    		this.$toast('请先选择角色');
 		    		return
 				}
+				let self = this;
 				Dialog.confirm({
 					title: '提醒',
 					message: '亲爱的用户，为了减少等待时间，请您进入游戏并买好门票。\n为您找好队伍后，若您没有做好准备，您可能会被移除出队伍。\n（打团费用原路退还）'
 				}).then(() => {
-					this.$router.push({name: 'createTeam'})
+					self.$router.push({
+						name: 'createTeam',
+						query: {
+							"roleName": self.juese,
+							"roleUri": self.JueseSelectList[self.JueseSelectionId].roleUri,
+							"fubenName": self.fuben,
+							"fubenPrice": self.FubenSelectList[self.FubenSelectionId].price,
+							"fubenUri": self.FubenSelectList[self.FubenSelectionId].resource_uri,
+						}
+					})
 				}).catch(() => {
 					this.$toast('你取消了操作');
 				});
@@ -189,8 +199,8 @@
 	}
 	.yhq {
 		line-height: 20px;
-		font-size: 0.6rem;
-		color: #DDDDDD;
+		font-size: 0.8rem;
+		color: #5d5d5d;
 	}
 	.red {
 		color: #FF0036;
