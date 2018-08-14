@@ -53,6 +53,8 @@
     .title {
         padding-left: 10px;
         line-height: 40px;
+        font-weight: 700;
+        font-size: 1rem;
     }
     .menu {
         line-height: 50px;
@@ -64,7 +66,8 @@
         display: block;
         width: 100%;
         height: 100%;
-        color: #5D5D5D;
+        color: #333333;
+        font-size: 0.85rem;
     }
     .tip-box {
         padding: 0 10px;

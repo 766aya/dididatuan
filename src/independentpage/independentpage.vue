@@ -18,6 +18,9 @@
                 routeInfo: this.$route.query,
             }
         },
+        watch: {
+            
+        },
         methods: {
             onClickLeft() {
 				this.$router.push({name: 'User', query: {bar: '2'} })

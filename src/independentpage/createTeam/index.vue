@@ -54,6 +54,7 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
     export default {
         name: 'create-team',
         data() {
@@ -100,7 +101,39 @@
                 this.info.Coupon = this.coupon.list[index].name
             },
             onSubmit () {
-                this.$router.push({name: 'matchTeam'})
+                let self = this;
+                new Promise((reslove, reject)=>{
+                    self.startMatching((err, res)=>{
+                        if (!err) {
+                            reslove(res)
+                        }else{
+                            reject(err)
+                        }
+                    })
+                }).then(res=>{
+                    console.log(res)
+                    Toast('匹配订单创建成功！')
+                    this.$router.push({name: 'matchTeam'})
+                }).catch(err=>{
+                    console.log(err)
+                })
+            },
+            startMatching (cb) {
+                let self = this;
+                new Promise((reslove, reject)=>{
+                    self.Axios.post('/api/v1/match_order/', {
+                        role: self.$route.query.roleUri,
+                        dungeon: self.$route.query.fubenUri
+                    }).then(res=>{
+                        reslove(res)
+                    }).catch(err=>{
+                        reject(err)
+                    })
+                }).then(res=>{
+                    cb(null, 'res: '+ res)
+                }).catch(err=>{
+                    cb('err: '+ err)
+                })
             }
         }
     }
