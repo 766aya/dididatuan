@@ -1,19 +1,19 @@
 <template>
     <div id="greatGod">
-        <div class="god-list">
-            <router-link class="link" :to="{name: 'method', query: {title: '大神端使用方式学习'}}">大神端使用方式学习</router-link>
+        <div class="god-list" @click="changeLink(0)">
+            <p class="link">大神端使用方式学习</p>
             <span v-show="status.method">已通过</span>
         </div>
-        <div class="god-list">
-            <router-link class="link" :to="{name: 'assessment', query: {title: '大神规则考核'}}">大神规则考核</router-link>
+        <div class="god-list" @click="changeLink(1)">
+            <p class="link">大神规则考核</p>
             <span v-show="status.assessment">已通过</span>
         </div>
-        <div class="god-list">
-            <router-link class="link" :to="{name: 'standard', query: {title: '大神行为管理规范'}}">大神行为管理规范</router-link>
+        <div class="god-list" @click="changeLink(2)">
+            <p class="link">大神行为管理规范</p>
             <span v-show="status.standard">已通过</span>
         </div>
-        <div class="god-list">
-            <router-link class="link" :to="{name: 'authenticate', query: {title: '大神角色认证'}}">大神角色认证</router-link>
+        <div class="god-list" @click="changeLink(3)">
+            <p class="link">大神角色认证</p>
             <span v-show="status.authenticate">已通过</span>
         </div>
     </div>
@@ -29,6 +29,26 @@
                     assessment: true,
                     standard: false,
                     authenticate: false
+                }
+            }
+        },
+        methods: {
+            changeLink(val) {
+                switch (val) {
+                    case 0:
+                        this.$router.push({name: 'method', query: {title: '大神端使用方式学习'}})
+                        break;
+                    case 1:
+                        this.$router.push({name: 'assessment', query: {title: '大神规则考核'}})
+                        break;
+                    case 2:
+                        this.$router.push({name: 'standard', query: {title: '大神行为管理规范'}})
+                        break;
+                    case 3:
+                        this.$router.push({name: 'authenticate', query: {title: '大神角色认证'}})
+                        break;
+                    default:
+                        break;
                 }
             }
         }
