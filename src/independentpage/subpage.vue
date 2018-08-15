@@ -5,6 +5,7 @@
             left-text="返回"
             left-arrow
             @click-left="onClickLeft"
+            class="header"
         />
 		<router-view />
 	</div>
@@ -27,5 +28,4 @@
 </script>
 
 <style>
-
 </style>

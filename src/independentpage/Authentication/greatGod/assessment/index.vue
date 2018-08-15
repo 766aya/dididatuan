@@ -1,10 +1,10 @@
 <template>
     <div id="assessment">
         <div class="content">
-            <div v-for="(item, index) in subject" :key="index">
-                <p v-text="index+1+'. '+item.title"></p>
-                <span v-text="item.answerA"></span>
-                <span v-text="item.answerB"></span>
+            <div class="item" v-for="(item, index) in subject" :key="index">
+                <p class="title" v-text="index+1+'. '+item.title"></p>
+                <p class="answer" v-text="`A:${item.answerA}`"></p>
+                <p class="answer" v-text="`B:${item.answerB}`"></p>
             </div>
         </div>
         <div class="btn" @click="submit">提交答案</div>
@@ -32,6 +32,26 @@
 </script>
 
 <style scoped>
+    #assessment {
+        
+    }
+    .content {
+        display: grid;
+    }
+    .item {
+        padding: 10px 20px;
+        margin: 10px 0px;
+        background: #FFFFFF;
+    }
+    .title {
+        font-size: 0.9rem;
+        padding-bottom: 5px;
+    }
+    .answer {
+        padding-left: 10px;
+        line-height: 20px;
+        font-size: 0.85rem;
+    }
     .btn {
         width: 100vw;
         height: 60px;
