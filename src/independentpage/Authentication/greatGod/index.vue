@@ -56,9 +56,6 @@
 </script>
 
 <style scoped>
-    #greatGod {
-        
-    }
     .god-list {
         height: 30px;
         line-height: 30px;

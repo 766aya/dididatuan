@@ -88,9 +88,6 @@
 </script>
 
 <style scoped>
-    #assessment {
-        
-    }
     .content {
         display: grid;
     }
