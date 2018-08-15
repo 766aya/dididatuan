@@ -33,7 +33,6 @@
             submit() {
                 let self = this;
                 new Promise((reslove, reject)=>{
-                    console.log('test')
                     self.subject.forEach((item, index) => {
                         if (item.pd == 3) {
                             reject('你还有题目没做哦！'+index)
@@ -41,27 +40,23 @@
                     });
                     reslove()
                 }).then(res=>{
-                    console.log('test', res)
                     let arr = []
                     self.subject.forEach((item, index) => {
                         if ((item.pd-1) != item.trueAnswer) {
-                            console.log('ttttttttttttttest')
-                            console.log(self.subject[index], index)
                             if (self.subject[index].trueAnswer == 0) {
                                 self.$set(self.subject[index], 'pd', false)
-                                console.log(self.subject[index])
+                                console.log('0', self.subject[index])
                             } else {
                                 self.$set(self.subject[index], 'pd', true)
-                                console(self.subject[index])
+                                console.log('1', self.subject[index])
                             }
-                            console.log(item, index)
+                            arr.push(false)
                         } else {
                             arr.push(true)
                         }
                     });
-                    reslove(arr)
+                    return arr
                 }).then(res=>{
-                    console.log('test')
                     let pd = true;
                     res.forEach(item=>{
                         if (item == true && pd == true) {
@@ -71,15 +66,17 @@
                         }
                     })
                     if (pd == true) {
-                        reslove(true)
+                        return {state: true}
                     } else {
-                        reject('还有题目没有答对哦！')
+                        return {state: false, msg: '还有题目没有答对哦！'}
                     }
                 }).then(res=>{
-                    console.log('test')
-                    Toast.success('恭喜你，完成本次认证')
+                    if (res.state) {
+                        Toast.success('恭喜你，完成本次认证')
+                    } else {
+                        Toast.fail(res.msg)
+                    }
                 }).catch(err=>{
-                    console.log('test')
                     Toast.fail(err)
                 })
             },
