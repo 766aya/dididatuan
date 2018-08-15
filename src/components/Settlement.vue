@@ -136,6 +136,7 @@
 					title: '提醒',
 					message: '亲爱的用户，为了减少等待时间，请您进入游戏并买好门票。\n为您找好队伍后，若您没有做好准备，您可能会被移除出队伍。\n（打团费用原路退还）'
 				}).then(() => {
+					console.log(self.JueseSelectList[self.JueseSelectionId])
 					self.$router.push({
 						name: 'createTeam',
 						query: {
@@ -144,6 +145,8 @@
 							"fubenName": self.fuben,
 							"fubenPrice": self.FubenSelectList[self.FubenSelectionId].price,
 							"fubenUri": self.FubenSelectList[self.FubenSelectionId].resource_uri,
+							"serverName": self.JueseSelectList[self.JueseSelectionId].serverName,
+							"serverUri": self.JueseSelectList[self.JueseSelectionId].serverUri,
 						}
 					})
 				}).catch(() => {

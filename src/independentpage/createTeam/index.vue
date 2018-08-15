@@ -113,7 +113,11 @@
                 }).then(res=>{
                     console.log(res)
                     Toast('匹配订单创建成功！')
-                    this.$router.push({name: 'matchTeam'})
+                    this.$router.push({name: 'matchTeam',query: {
+                        roleName: this.$route.query.roleName,
+                        fubenName: this.$route.query.fubenName,
+                        serverName: this.$route.query.serverName
+                    }})
                 }).catch(err=>{
                     console.log(err)
                 })
