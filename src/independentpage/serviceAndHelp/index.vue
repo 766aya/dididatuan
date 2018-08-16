@@ -22,7 +22,8 @@
             <router-link :to="{name: 'didiTeam', query: {title: '滴滴交流群'}}" class="link">滴滴交流群</router-link>
         </div>
         <div class="btn">
-            <router-link :to="{name: 'callHelp', query: {title: '联系客服'}}" class="callServer">联系客服</router-link>
+            <!-- <a href="weixin://wap/pay?z1494233259" class="callServer">联系客服</a> -->
+            <a @click="test" class="callServer">联系客服</a>
         </div>
         <div class="btn">
             <router-link :to="{name: 'cleanCache', query: {title: '清除缓存'}}" class="clearCache">清除缓存</router-link>
@@ -38,8 +39,29 @@
                 routeInfo: this.$route.query,
             }
         },
+        created() {
+            wx.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx4f82f99cd5b54909', // 必填，企业号的唯一标识，此处填写企业号corpid
+                timestamp: new Date().getTime(), // 必填，生成签名的时间戳
+                nonceStr: 'z9Fwn9BvDd6RGh8vuiQfbLMGJORyuCFX', // 必填，生成签名的随机串
+                signature: '',// 必填，签名，见附录1
+                jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });
+        },
 		methods: {
-
+            test() {
+                wx.chooseWXPay({
+                    timestamp: new Date().getTime(), // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                    nonceStr: 'z9Fwn9BvDd6RGh8vuiQfbLMGJORyuCFX', // 支付签名随机串，不长于 32 位
+                    signType: 'SHA1', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                    paySign: 'appid=wx4f82f99cd5b54909', // 支付签名
+                    success: function (res) {
+                        // 支付成功后的回调函数
+                        console.log(res)
+                    }
+                });
+            }
 		}
     }
 </script>
