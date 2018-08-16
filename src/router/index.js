@@ -54,6 +54,8 @@ import cleanCache from '@/independentpage/serviceAndHelp/cleanCache' //清除缓
 import createTeam from '@/independentpage/createTeam' // 创建队伍
 import matchTeam from '@/independentpage/createTeam/matchTeam' // 寻找队伍
 
+// 测试页面
+import test from '@/independentpage/test' // 寻找队伍
 
 Vue.use(Router)
 
@@ -231,6 +233,10 @@ export default new Router({
           path: 'serviceAndHelp',
           name: 'serviceAndHelp',
           component: serviceAndHelp
+        }, {
+          path: 'test',
+          name: 'test',
+          component: test
         }
       ]
     }, {
