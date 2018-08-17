@@ -113,11 +113,11 @@
                 }).then(res=>{
                     console.log(res)
                     Toast('匹配订单创建成功！')
-                    this.$router.push({name: 'matchTeam',query: {
-                        roleName: this.$route.query.roleName,
-                        fubenName: this.$route.query.fubenName,
-                        serverName: this.$route.query.serverName
-                    }})
+                    // this.$router.push({name: 'matchTeam',query: {
+                    //     roleName: this.$route.query.roleName,
+                    //     fubenName: this.$route.query.fubenName,
+                    //     serverName: this.$route.query.serverName
+                    // }})
                 }).catch(err=>{
                     console.log(err)
                 })
@@ -125,9 +125,9 @@
             startMatching (cb) {
                 let self = this;
                 new Promise((reslove, reject)=>{
-                    self.Axios.post('/api/v1/match_order/', {
-                        role: self.$route.query.roleUri,
-                        dungeon: self.$route.query.fubenUri
+                    self.Axios.post('/api/v1/payment/get_alipay_url', {
+                        match_order_uri: self.$store.state.user.userInfo.resource_uri,
+                        return_url: ''
                     }).then(res=>{
                         reslove(res)
                     }).catch(err=>{
