@@ -41,6 +41,8 @@
 				</div>
 			</van-cell-group>
 			<van-button class="btn" size="large" type="default" @click="login">登陆</van-button>
+			<button class="btn-default weixin iconfont icon-weixin" size="large" type="default" @click="loginWx">微信快速登录</button>
+			<button class="btn-default qq iconfont icon-qq" size="large" type="default" @click="loginQq">QQ快速登录</button>
 		</div>
 	</div>
 </template>
@@ -102,6 +104,14 @@
 					Toast('图形验证码获取失败！')
 				})
 			},
+			loginWx() {
+				let self = this;
+				Toast.success('微信登陆接口!');
+			},
+			loginQq() {
+				let self = this;
+				Toast.success('QQ登陆接口!');
+			}
 		}
 	}
 </script>
@@ -126,6 +136,26 @@
 		margin-top: 15px;
 		width: 80%;
 		text-align: center;
+	}
+	.btn-default {
+		display: block;
+		width: 80%;
+		padding: 15px 0;
+		background-color: #FFFFFF;
+		border: 1px solid #E5E5E5;
+		margin: 0 auto;
+		margin-bottom: 20px;
+	}
+	.btn-default::before {
+		padding-right: 10px;
+	}
+	.weixin {
+		background-color: #51C332;
+		color: #FFFFFF;
+	}
+	.qq {
+		background-color: #0188FB;
+		color: #FFFFFF;
 	}
 	.yzm {
 		position: absolute;
