@@ -51,6 +51,7 @@
                     self.$store.state.user.userInfo.qq = res.qq;
                     self.$store.state.user.userInfo.type = res.type;
 					self.$store.state.user.userInfo.money = res.money;
+					self.$store.state.user.userInfo.resource_uri = res.resource_uri;
 					if (self.isLogin = true) {
 						self.getServers(self, (err, servers)=>{
 							self.$store.state.serverAndJobs.servers = servers

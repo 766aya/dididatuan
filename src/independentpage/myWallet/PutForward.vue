@@ -52,6 +52,7 @@
                     self.$store.state.user.userInfo.qq = res.qq;
                     self.$store.state.user.userInfo.type = res.type;
                     self.$store.state.user.userInfo.money = res.money;
+                    self.$store.state.user.userInfo.resource_uri = res.resource_uri;
                 }
             })
         },
@@ -68,7 +69,7 @@
                 }
             },
             show(newVal) {
-                if (this.show == false && this.val > 0 && this.val != '' && !this.tips) {
+                if (this.show == false && this.val > 0 && this.val != '') {
                     this.disabled = true
                 } else {
                     this.disabled = false
@@ -102,7 +103,7 @@
                 let self = this;
                 let num = parseFloat(this.val)
 
-                if (this.disabled == true && num > 0 && num <= this.money && tips) {
+                if (this.disabled == true && num > 0 && num <= this.money) {
                     Dialog.confirm({
                         title: '提示',
                         message: `你本次提现金额为${num}元`
@@ -117,7 +118,6 @@
                                 reject(err)
                             })
                         }).then(res=>{
-                            // ↓
                             console.log(res)
                         }).catch(err=>{
                             console.log(err)
