@@ -146,30 +146,6 @@
                 //     console.log(err)
                 // })
             },
-            startMatching (cb) {
-                let self = this;
-                new Promise((reslove, reject)=>{
-                    self.Axios.post('/api/v1/payment/get_alipay_url', {
-                        match_order_uri: self.$store.state.user.userInfo.resource_uri,
-                        return_url: ''
-                    }).then(res=>{
-                        reslove(res)
-                    }).catch(err=>{
-                        reject(err)
-                    })
-                }).then(res=>{
-                    if (!err) {
-                        if (res.data._status == 0) {
-                            self.match_order = res.data.resource_uri
-                            cb(null, res.data.resource_uri)
-                        } else {
-                            Toast(res.data._reason)
-                        }
-                    }
-                }).catch(err=>{
-                    cb(err)
-                })
-            },
             CreateAnOrder(cb) {
                 // 创建匹配订单
                 let self = this;
@@ -193,7 +169,7 @@
                 let self = this;
                 this.Axios.post('/api/v1/payment/get_alipay_url', {
                     match_order_uri: match_order,
-                    return_url: ''
+                    return_url: 'http://127.0.0.1:8888'
                 }).then(res=>{
                     if (res.data._status == 0) {
                         window.location.href = res.data.alipay_url
