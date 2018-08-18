@@ -22,7 +22,8 @@
                 matchDate: '00:00',
                 spot: '.',
                 minute: 0,
-                second: 0
+                second: 0,
+                match_older: this.$router.query.match_older
             }
         },
         created() {
@@ -51,6 +52,7 @@
                         minute = '' + minute
                     }
                     self.matchDate = minute + ':' + second
+                    self.stateQuery()
                     // console.log("matchDate: ", self.matchDate)
                 }, 1000)
             },
@@ -66,7 +68,17 @@
                 });
             },
             stateQuery() {
+                this.Axios.post('/api/v1/room/match/', {
+                    match_older: this.match_older
+                }).then(res=>{
+                    if (res.data._status == 0) {
+                        self.$router.push({name: ''})
+                    } else {
 
+                    }
+                }).catch(err=>{
+
+                })
             }
         },
         destroyed () {

@@ -148,7 +148,7 @@
                 let self = this;
                 this.Axios.post('/api/v1/payment/get_alipay_url', {
                     match_order_uri: match_order,
-                    return_url: `http://didi.51wdy.top/subpage/matchTeam?roleName=${self.info.role}&serverName=${self.$route.queryserverName}&fubenName=${self.info.fuben}`
+                    return_url: `http://didi.51wdy.top/subpage/matchTeam?match_older=${self.match_order}&roleName=${self.info.role}&serverName=${self.$route.query.serverName}&fubenName=${self.info.fuben}`
                 }).then(res=>{
                     if (res.data._status == 0) {
                         window.location.href = res.data.alipay_url;

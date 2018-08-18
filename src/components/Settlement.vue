@@ -4,10 +4,10 @@
 			<img src="/static/logo.png">
 		</div>
 		<div class="settlement-content">
-			<div class="text t1">选择副本：</div>
+			<div class="text t1">副本：</div>
 			<div class="text t2" @click="FubenSelectionIsShow = true">{{fuben}}</div>
 			<div class="text t2 iconfont icon-you"></div>
-			<div class="text t1">选择角色：</div>
+			<div class="text t1">角色：</div>
 			<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
 			<div class="text t2 iconfont icon-you"></div>
 			<div class="item price" v-text="`价格：${price/100}元`"></div>
@@ -55,6 +55,15 @@
 				JueseSelectionIsShow: false,
 				price: 0,
 				yhq: 0,
+			}
+		},
+		watch: {
+			fuben(newValue) {
+				if (newValue.length >= 10) {
+					
+				} else {
+					
+				}
 			}
 		},
 		created() {
@@ -185,7 +194,7 @@
 	}
 	.settlement-content {
 		display: grid;
-		grid-template-columns: 80px auto 30px;
+		grid-template-columns: 50px auto 30px;
 		grid-template-rows: 50px 50px 50px 20px;
 		padding: 20px 20px;
 	}
