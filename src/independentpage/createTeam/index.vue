@@ -124,27 +124,6 @@
                         Toast('请选择支付方式！')
                         break
                 }
-
-                // let self = this;
-                // new Promise((reslove, reject)=>{
-                //     self.startMatching((err, res)=>{
-                //         if (!err) {
-                //             reslove(res)
-                //         }else{
-                //             reject(err)
-                //         }
-                //     })
-                // }).then(res=>{
-                //     console.log(res)
-                //     Toast('匹配订单创建成功！')
-                //     this.$router.push({name: 'matchTeam',query: {
-                //         roleName: this.$route.query.roleName,
-                //         fubenName: this.$route.query.fubenName,
-                //         serverName: this.$route.query.serverName
-                //     }})
-                // }).catch(err=>{
-                //     console.log(err)
-                // })
             },
             CreateAnOrder(cb) {
                 // 创建匹配订单
@@ -169,15 +148,15 @@
                 let self = this;
                 this.Axios.post('/api/v1/payment/get_alipay_url', {
                     match_order_uri: match_order,
-                    return_url: 'http://127.0.0.1:8888'
+                    return_url: `http://didi.51wdy.top/subpage/matchTeam?roleName=${self.info.role}&serverName=${self.$route.queryserverName}&fubenName=${self.info.fuben}`
                 }).then(res=>{
                     if (res.data._status == 0) {
-                        window.location.href = res.data.alipay_url
+                        window.location.href = res.data.alipay_url;
                     }else{
-                        Toast('支付URL获取异常')
+                        Toast('支付URL获取异常');
                     }
                 }).catch(err=>{
-                    Toast('支付URL获取失败')
+                    Toast('支付URL获取失败');
                 })
             },
             wechatPay() {

@@ -7,8 +7,8 @@ import User from '@/mainpage/user'
 import Login from '@/mainpage/login'
 import Register from '@/mainpage/register'
 
-import independentPage from '@/independentpage/independentpage'
-import subpage from '@/independentpage/subpage'
+import independentPage from '@/independentpage/independentpage' // 独立页面
+import subpage from '@/independentpage/subpage' // 底层页面
 
 import MessageContent from '@/independentpage/MessageContent'
 

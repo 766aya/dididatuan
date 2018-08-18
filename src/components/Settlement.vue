@@ -95,7 +95,7 @@
 									careerUri : item.careerUri,
 									img : item.img,
 									text: item.roleName,
-									roleUri:item.roleUri,
+									roleUri: item.roleUri,
 									serverName: item.serverName,
 									serverUri : item.serverUri
 								}
