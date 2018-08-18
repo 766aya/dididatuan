@@ -46,9 +46,19 @@
         },
         methods: {
             roleControl() {
+                let self = this
+                if (!self.$store.state.user.isLogin) {
+                    self.$toast('您还未登陆，请先登陆账号！');
+                    return false
+                }
                 this.$router.push({name: 'myRoleControl', query: {title: '角色管理'}})
             },
             addRole() {
+                let self = this
+                if (!self.$store.state.user.isLogin) {
+                    self.$toast('您还未登陆，请先登陆账号！');
+                    return false
+                }
                 this.$router.push({name: 'addRole', query: {title: '添加角色'}})
             }
         }

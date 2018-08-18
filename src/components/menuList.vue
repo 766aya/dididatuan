@@ -1,5 +1,5 @@
 <template>
-    <div class="menuList" @click="routerPush(list.url)">
+    <div class="menuList" @click="routerPush(list)">
         <span class="list-title iconfont" :class="list.icon"></span>
         <p class="list-content">{{list.name}}</p>
     </div>
@@ -15,8 +15,13 @@
         },
         props:['list'],
         methods: {
-            routerPush (url) {
-                this.$router.push({name: url, query: {title: this.list.name}})
+            routerPush (list) {
+                let self = this
+                if (!self.$store.state.user.isLogin && list.auth) {
+                    self.$toast('您还未登陆，请先登陆账号！');
+                    return false
+                }
+                this.$router.push({name: list.url, query: {title: this.list.name}})
             }
         }
     };
