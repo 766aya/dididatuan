@@ -70,7 +70,8 @@
                 coupon: this.$store.state.coupon,
                 chosenCoupon: -1,
                 isCouponShow: false,
-                isSubmit: false
+                isSubmit: false,
+                match_order: '',
             }
         },
         computed: {
@@ -102,25 +103,48 @@
             },
             onSubmit () {
                 let self = this;
-                new Promise((reslove, reject)=>{
-                    self.startMatching((err, res)=>{
-                        if (!err) {
-                            reslove(res)
-                        }else{
-                            reject(err)
-                        }
-                    })
-                }).then(res=>{
-                    console.log(res)
-                    Toast('匹配订单创建成功！')
-                    this.$router.push({name: 'matchTeam',query: {
-                        roleName: this.$route.query.roleName,
-                        fubenName: this.$route.query.fubenName,
-                        serverName: this.$route.query.serverName
-                    }})
-                }).catch(err=>{
-                    console.log(err)
-                })
+                switch(this.payWay) {
+                    case 1:
+                        //团币支付
+                        Toast.fail('功能尚在建设中！')
+                        break;
+                    case 2:
+                        //微信支付
+                        Toast.fail('功能尚在建设中！')
+                        break;
+                    case 3:
+                        // 支付宝支付
+                        this.CreateAnOrder((err, res)=>{
+                            if (!err) {
+                                this.aliPay(res)
+                            }
+                        });
+                        break;
+                    default:
+                        Toast('请选择支付方式！')
+                        break
+                }
+
+                // let self = this;
+                // new Promise((reslove, reject)=>{
+                //     self.startMatching((err, res)=>{
+                //         if (!err) {
+                //             reslove(res)
+                //         }else{
+                //             reject(err)
+                //         }
+                //     })
+                // }).then(res=>{
+                //     console.log(res)
+                //     Toast('匹配订单创建成功！')
+                //     this.$router.push({name: 'matchTeam',query: {
+                //         roleName: this.$route.query.roleName,
+                //         fubenName: this.$route.query.fubenName,
+                //         serverName: this.$route.query.serverName
+                //     }})
+                // }).catch(err=>{
+                //     console.log(err)
+                // })
             },
             startMatching (cb) {
                 let self = this;
@@ -134,10 +158,60 @@
                         reject(err)
                     })
                 }).then(res=>{
-                    cb(null, 'res: '+ res)
+                    if (!err) {
+                        if (res.data._status == 0) {
+                            self.match_order = res.data.resource_uri
+                            cb(null, res.data.resource_uri)
+                        } else {
+                            Toast(res.data._reason)
+                        }
+                    }
                 }).catch(err=>{
-                    cb('err: '+ err)
+                    cb(err)
                 })
+            },
+            CreateAnOrder(cb) {
+                // 创建匹配订单
+                let self = this;
+                this.Axios.post('/api/v1/match_order/', {
+                    dungeon: self.$route.query.fubenUri,
+                    role: self.$route.query.roleUri
+                }).then(res=>{
+                    if (res.data._status == 0) {
+                        self.match_order = res.data.resource_uri
+                        cb(null, res.data.resource_uri)
+                    }else{
+                        Toast(res.data._reason)
+                        cb(res.data._reason)
+                    }
+                }).catch(err=>{
+                    cb(err)
+                })
+            },
+            aliPay(match_order = this.match_order) {
+                // 支付宝支付
+                let self = this;
+                this.Axios.post('/api/v1/payment/get_alipay_url', {
+                    match_order_uri: match_order,
+                    return_url: ''
+                }).then(res=>{
+                    if (res.data._status == 0) {
+                        window.location.href = res.data.alipay_url
+                    }else{
+                        Toast('支付URL获取异常')
+                    }
+                }).catch(err=>{
+                    Toast('支付URL获取失败')
+                })
+            },
+            wechatPay() {
+                // 微信支付
+            },
+            tbPay() {
+                // 团币支付
+            },
+            closeOrder() {
+
             }
         }
     }
