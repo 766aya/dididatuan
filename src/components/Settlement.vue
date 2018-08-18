@@ -127,11 +127,15 @@
 				this.JueseSelectionId = index
 		    },
 		    gotoDatuan () {
+				let self = this;
+		    	if (!self.$store.state.user.isLogin) {
+		    		self.$toast('您还未登陆，请先登陆账号！');
+		    		return false
+		    	}
 		    	if (this.juese == '') {
 		    		this.$toast('请先选择角色');
 		    		return
 				}
-				let self = this;
 				Dialog.confirm({
 					title: '提醒',
 					message: '亲爱的用户，为了减少等待时间，请您进入游戏并买好门票。\n为您找好队伍后，若您没有做好准备，您可能会被移除出队伍。\n（打团费用原路退还）'
