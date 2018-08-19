@@ -29,7 +29,17 @@
 		},
 		methods: {
 			putForward() {
-				this.$router.push({name: 'PutForward', query: {title: '提现'}})
+				this.QueryLanding(this, (err, res)=>{
+					if (!err) {
+						if (res.type == 0) {
+							Toast('提现需先进行大神认证！')
+						} else {
+							this.$router.push({name: 'PutForward', query: {title: '提现'}})
+						}
+					} else {
+						Toast('用户未登录！')
+					}
+				})
 			},
 			transactionRecord() {
 				this.$router.push({name: 'TransactionRecord', query: {title: '交易记录'}})

@@ -71,11 +71,12 @@
                 this.Axios.post('/api/v1/room/match/', {
                     match_older: this.match_older
                 }).then(res=>{
-                    if (res.data._status == 0) {
-                        self.$router.push({name: ''})
-                    } else {
+                    console.log(res)
+                    // if (res.data._status == 0) {
+                    //     self.$router.push({name: ''})
+                    // } else {
 
-                    }
+                    // }
                 }).catch(err=>{
 
                 })

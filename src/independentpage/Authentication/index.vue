@@ -2,10 +2,10 @@
     <div id="Authentication">
         <div class="title">实力认证</div>
         <div class="menu">
-            <router-link class="link" :to="{name: 'greatGod', query: {title: '大神认证'}}">大神认证</router-link>
+            <a class="link" @click="routerPush('greatGod', '大神认证')">大神认证</a>
         </div>
         <div class="menu">
-            <router-link class="link" :to="{name: 'groupHead', query: {title: '团长认证'}}">团长认证</router-link>
+            <a class="link" @click="routerPush('groupHead', '团长认证')">团长认证</a>
         </div>
         <div class="title">个人认证</div>
         <div class="menu">
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import { Toast } from 'vant';
+
     export default {
         name: 'Authentication',
         data() {
@@ -39,8 +41,36 @@
         },
 		methods: {
             routerPush (url, title) {
-                this.$router.push({name: url, query: {title: title}})
-            }
+                let self = this;
+                if (url == 'greatGod') {
+                    this.QueryLanding(this, (err, res)=>{
+                        if (!err) {
+                            if (res.type == 0) {
+                                self.$router.push({name: url, query: {title: title}})
+                            } else {
+                                Toast('你已完成大神认证！')
+                            }
+                        } else {
+                            Toast('用户未登录！')
+                        }
+                    })
+                } else if(url == 'groupHead') {
+                    this.QueryLanding(this, (err, res)=>{
+                        if (!err) {
+                            if (res.type == 0) {
+                                Toast('请先完成大神认证！')
+                            } else if(res.type == 1) {
+                                self.$router.push({name: url, query: {title: title}})
+                            } else if(res.type == 2) {
+                                Toast('你已完成团长认证!')
+                            }
+                        } else {
+                            Toast('用户未登录！')
+                        }
+                    })
+                }
+            },
+            
 		}
     }
 </script>

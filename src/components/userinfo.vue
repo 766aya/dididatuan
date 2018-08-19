@@ -69,20 +69,19 @@
 				}).then(() => {
 					Toast.loading({ mask: false, message: '退出中...' });
 					self.Axios.post('/api/v1/user/logout').then(res=>{
-						console.log(res)
 						if (res.data._status == 0 && res.status == 200) {
 							Toast.success('退出成功！')
 							self.isLogin = false;
 							self.$store.state.user.isLogin = false;
-							self.$router.push({name: 'User'})
+							window.location.reload()
 						} else {
 							Toast.fail('退出失败！'+res.data._reason)
 						}
 					}).catch(err=>{
-						Toast.fail('退出失败！')
+						Toast.fail('退出失败！'+err)
 					})
-				}).catch(() => {
-					Toast.fail('退出失败！')
+				}).catch((err) => {
+					Toast('你取消了该操作')
 				});
 			}
 		}

@@ -35,21 +35,32 @@
 						placeholder="请输入验证码"
 						required
 					/>
-					<div class="yzm" @click="getyzm">
-						<img :src="yzmImgSrc">
-					</div>
 				</div>
 			</van-cell-group>
+			<div class="control">
+				<van-radio-group v-model="radio">
+					<van-radio name="1">记住登陆状态</van-radio>
+				</van-radio-group>
+				<div class="RetrieveThePassword iconfont icon-zhaohuimima" @click="isRetrieveThePasswordShow = !isRetrieveThePasswordShow">找回密码</div>
+			</div>
 			<van-button class="btn" size="large" type="default" @click="login">登陆</van-button>
 			<button class="btn-default weixin iconfont icon-weixin" size="large" type="default" @click="loginWx">微信快速登录</button>
 			<button class="btn-default qq iconfont icon-qq" size="large" type="default" @click="loginQq">QQ快速登录</button>
+			<van-dialog
+				v-model="isRetrieveThePasswordShow"
+				show-cancel-button
+				:close-on-click-overlay="true"
+				class="dialog"
+			>
+				<retrieve-the-password></retrieve-the-password>
+			</van-dialog>
 		</div>
 	</div>
 </template>
 
 <script>
-	import { Toast } from 'vant';
-
+	import { Toast, Dialog } from 'vant';
+	import retrieveThePassword from '@/components/retrieveThePassword'
 	export default {
 		name: 'login',
 		data() {
@@ -57,10 +68,17 @@
 				inputInfo: {
 					username: '18000000000',
 					password: 'admin1',
-					captcha_code: ''
+					captcha_code: '',
+					phone_code: ''
 				},
-				yzmImgSrc: ''
+				yzmImgSrc: '',
+				radio: '1',
+				isRetrieveThePasswordShow: false,
+				getsms: false,
 			}
+		},
+		components: {
+			retrieveThePassword: retrieveThePassword
 		},
 		created() {
 			this.getyzm()
@@ -71,14 +89,14 @@
 			},
 			login() {
 				let self = this;
-				if (this.inputInfo.username && this.inputInfo.password) {
+				if (this.inputInfo.username && this.inputInfo.password && this.inputInfo.captcha_code != '') {
 					new Promise((reslove, reject)=>{
 						self.Axios.post('/api/v1/user/login', {
 							username: self.inputInfo.username,
 							password: self.inputInfo.password,
 							captcha_code: self.inputInfo.captcha_code
 						}).then(res=>{
-							if (res.status == 200) {
+							if (res.status == 200 && res.data._status == 0) {
 								reslove(res)
 							}else{
 								reject(res.data._reason)
@@ -87,13 +105,13 @@
 							reject(err)
 						})
 					}).then(res=>{
-						self.$router.push({name: 'User'})
 						Toast.success('登陆成功!');
+						self.$router.push({name: 'User'})
 					}).catch(err=>{
 						Toast.fail('登陆失败!'+err);
 					})
 				} else {
-					Toast('用户名或密码不能为空!');
+					Toast('用户名、密码或验证码不能为空!');
 				}
 			},
 			getyzm() {
@@ -111,7 +129,7 @@
 			loginQq() {
 				let self = this;
 				Toast.success('QQ登陆接口!');
-			}
+			},
 		}
 	}
 </script>
@@ -163,6 +181,22 @@
 		right: 6px;
 		width: 120px;
 		height: 30px;
-		z-index: 9999;
+		z-index: 1;
+	}
+	.control {
+		display: grid;
+		padding: 15px 15px 0px 15px;
+		grid-template-columns: 50% 50%;
+		height: 15px;
+		line-height: 15px;
+		font-size: 0.9rem;
+		text-align: center;
+	}
+	.RetrieveThePassword {
+		color: #000000;
+		font-size: 0.9rem;
+	}
+	.dialog {
+		padding-top: 10px;
 	}
 </style>
