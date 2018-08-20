@@ -34,8 +34,8 @@
                 v-model="inputInfo.password"
                 required
                 type="password"
-                label="密码"
-                placeholder="请输入密码"
+                label="新密码"
+                placeholder="请输入新密码"
             />
 
             <van-field
