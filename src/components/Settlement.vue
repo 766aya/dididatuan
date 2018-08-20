@@ -1,6 +1,6 @@
 <template>
 	<div id="Settlement">
-		<div class="logo">
+		<div class="logo" @click="identitySelectionIsShow = !identitySelectionIsShow">
 			<img src="/static/logo.png">
 		</div>
 		<div class="settlement-content">
@@ -36,11 +36,13 @@
 			class="picker"
 			v-show="JueseSelectionIsShow"
 		/>
+		<identitySelection :show="identitySelectionIsShow" :AuthType="auth" @change="identitySelect" @close="identitySelectionIsShow = false"></identitySelection>
 	</div>
 </template>
 
 <script>
 	import { Dialog } from 'vant';
+	import identitySelection from '@/components/identitySelection'
 	export default {
 		name: 'Settlement',
 		data() {
@@ -55,14 +57,20 @@
 				JueseSelectionIsShow: false,
 				price: 0,
 				yhq: 0,
+				auth: 0,
+				identitySelectionIsShow: false,
 			}
+		},
+		components: {
+			identitySelection
 		},
 		watch: {
 			fuben(newValue) {
+				console.log(newValue, newValue.length)
 				if (newValue.length >= 10) {
-					
+					this.fuben = this.fuben[0,10]+'...'
 				} else {
-					
+					this.fuben = this.fuben
 				}
 			}
 		},
@@ -93,6 +101,9 @@
 				console.log(err)
 			})
 			this.QueryLanding(self, (err, res)=>{
+				if (res) {
+					self.auth = res.type;
+				}
                 if (!err) {
                 	self.$store.state.user.isLogin = true;
                     if (self.$store.state.user.isLogin == true) {
@@ -165,7 +176,10 @@
 				}).catch(() => {
 					this.$toast('你取消了操作');
 				});
-		    }
+			},
+			identitySelect(val) {
+				console.log(val)
+			}
 		},
 		watch: {
 
