@@ -35,6 +35,9 @@
 						placeholder="请输入验证码"
 						required
 					/>
+					<div class="yzm" @click="getyzm">
+						<img :src="yzmImgSrc">
+					</div>
 				</div>
 			</van-cell-group>
 			<div class="control">
@@ -49,10 +52,11 @@
 			<van-dialog
 				v-model="isRetrieveThePasswordShow"
 				show-cancel-button
-				:close-on-click-overlay="true"
+				:showConfirmButton="false"
+				:closeOnClickOverlay="true"
 				class="dialog"
 			>
-				<retrieve-the-password></retrieve-the-password>
+				<retrieve-the-password @retrievePassworld="retrievePassworld"></retrieve-the-password>
 			</van-dialog>
 		</div>
 	</div>
@@ -130,6 +134,11 @@
 				let self = this;
 				Toast.success('QQ登陆接口!');
 			},
+			retrievePassworld(val) {
+				if (val) {
+					this.isRetrieveThePasswordShow = false
+				}
+			}
 		}
 	}
 </script>
