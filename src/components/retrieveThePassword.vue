@@ -80,7 +80,8 @@
                 new Promise((reslove, reject)=>{
                     self.Axios.post('/api/v1/user/send_phone_code', {
                         captcha_code: self.inputInfo.captcha_code,
-                        phone: self.inputInfo.username
+                        phone: self.inputInfo.username,
+                        sms_type: '2',
                     }).then(res=>{
                         if (res.status == 200 && res.data._status == 0) {
                             reslove()

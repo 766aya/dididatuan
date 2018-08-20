@@ -115,7 +115,8 @@
 						});
 						self.Axios.post('/api/v1/user/send_phone_code', {
 							captcha_code: self.inputInfo.captcha_code,
-							phone: self.inputInfo.phone
+							phone: self.inputInfo.phone,
+							sms_type: "3"
 						}).then(res=>{
 							Toast.clear();
 							reslove(res)
