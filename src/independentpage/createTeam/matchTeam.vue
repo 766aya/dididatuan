@@ -8,10 +8,7 @@
                 <div class="item">大区: {{this.$route.query.serverName}}</div>
                 <div class="item">副本: {{this.$route.query.fubenName}}</div>
             </div>
-            <div>{{minute}}</div>
-            <div>{{second}}</div>
             <van-button size="large" class="cancal" @click="cancal">取消订单</van-button>
-            <van-button size="large" class="cancal" @click="test">测试定时器</van-button>
         </div>
     </div>
 </template>
@@ -30,13 +27,9 @@
             }
         },
         created() {
-            alert('created')
             this.timing()
         },
         methods: {
-            test () {
-                alert('test')
-            },
             timing () {
                 let self = this
                 intervalTime = setInterval(function () {
@@ -75,8 +68,9 @@
                 });
             },
             stateQuery() {
+                let self = this
                 this.Axios.post('/api/v1/room/match/', {
-                    match_older: this.match_older
+                    match_older: self.match_older
                 }).then(res=>{
                     console.log(res)
                     // if (res.data._status == 0) {
@@ -88,9 +82,6 @@
 
                 })
             }
-        },
-        mounted () {
-            alert('mounted')
         },
         destroyed () {
             clearInterval(intervalTime)
