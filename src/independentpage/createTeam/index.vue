@@ -1,45 +1,72 @@
 <template>
     <div id="createTeam">
-        <div class="title">订单信息</div>
-        <div class="item">
-            <div class="lside">角色</div>
-            <div class="rside" v-text="info.role"></div>
+        <div v-if="type===2">
+            <div class="title">订单信息</div>
+            <div class="item">
+                <div class="lside">角色</div>
+                <div class="rside" v-text="info.role"></div>
+            </div>
+            <div class="item">
+                <div class="lside">副本</div>
+                <div class="rside" v-text="info.fuben"></div>
+            </div>
+            <div class="item">
+                <div class="lside">匹配老板人数</div>
+                <div class="rside" @click="changeList('rookie')">{{info.rookie}}<span class="text iconfont icon-you"></span></div>
+            </div>
+            <div class="item">
+                <div class="lside">匹配大神人数</div>
+                <div class="rside" @click="changeList('master')">{{info.master}}<span class="text iconfont icon-you"></span></div>
+            </div>
+            <van-submit-bar
+              :disabled="isSubmit"
+              :price="price"
+              button-text="创建房间"
+              @submit="createRoom"
+            />
         </div>
-        <div class="item">
-            <div class="lside">副本</div>
-            <div class="rside" v-text="info.fuben"></div>
+        <div v-else>
+            <div class="title">订单信息</div>
+            <div class="item">
+                <div class="lside">角色</div>
+                <div class="rside" v-text="info.role"></div>
+            </div>
+            <div class="item">
+                <div class="lside">副本</div>
+                <div class="rside" v-text="info.fuben"></div>
+            </div>
+            <div class="item">
+                <div class="lside">原价</div>
+                <div class="rside" v-text="`￥${info.Oprice}元`"></div>
+            </div>
+            <div class="item">
+                <div class="lside">优惠券</div>
+                <div class="rside" @click="isCouponShow = true">{{info.Coupon}}<span class="text iconfont icon-you"></span></div>
+            </div>
+            <div class="item">
+                <div class="lside">优惠金额</div>
+                <div class="rside" v-text="`￥${info.amount}元`"></div>
+            </div>
+            <div class="title">支付方式</div>
+            <div class="pay" @click="payWay=1">
+                <div class="lside">团币支付</div>
+                <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==1" /></div>
+            </div>
+            <div class="pay" @click="payWay=2">
+                <div class="lside">微信支付</div>
+                <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==2" /></div>
+            </div>
+            <div class="pay" @click="payWay=3">
+                <div class="lside">支付宝支付</div>
+                <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==3" /></div>
+            </div>
+            <van-submit-bar
+              :disabled="isSubmit"
+              :price="price"
+              button-text="去付款"
+              @submit="onSubmit"
+            />
         </div>
-        <div class="item">
-            <div class="lside">原价</div>
-            <div class="rside" v-text="`￥${info.Oprice}元`"></div>
-        </div>
-        <div class="item">
-            <div class="lside">优惠券</div>
-            <div class="rside" @click="isCouponShow = true">{{info.Coupon}}<span class="text iconfont icon-you"></span></div>
-        </div>
-        <div class="item">
-            <div class="lside">优惠金额</div>
-            <div class="rside" v-text="`￥${info.amount}元`"></div>
-        </div>
-        <div class="title">支付方式</div>
-        <div class="pay" @click="payWay=1">
-            <div class="lside">团币支付</div>
-            <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==1" /></div>
-        </div>
-        <div class="pay" @click="payWay=2">
-            <div class="lside">微信支付</div>
-            <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==2" /></div>
-        </div>
-        <div class="pay" @click="payWay=3">
-            <div class="lside">支付宝支付</div>
-            <div class="rside"><van-icon name="success" class="rside-icon" v-show="payWay==3" /></div>
-        </div>
-        <van-submit-bar
-          :disabled="isSubmit"
-          :price="price"
-          button-text="去付款"
-          @submit="onSubmit"
-        />
 
         <!-- 优惠券列表 -->
         <van-popup v-model="isCouponShow" position="bottom">
@@ -50,6 +77,16 @@
             @change="onChange"
           />
         </van-popup>
+
+        <van-picker
+            show-toolbar
+            title="选择人数"
+            :columns="selectList"
+            @cancel="isPicker=false;chosen=''"
+            @confirm="onConfirm"
+            class="picker"
+            v-show="isPicker"
+        />
     </div>
 </template>
 
@@ -64,7 +101,9 @@
                     fuben: '副本',
                     Oprice: '原价',
                     Coupon: '请选择优惠券',
-                    amount: 0
+                    amount: 0,
+                    master: 0,
+                    rookie: 1
                 },
                 payWay: 1,
                 coupon: this.$store.state.coupon,
@@ -72,6 +111,11 @@
                 isCouponShow: false,
                 isSubmit: false,
                 match_order: '',
+                type: 0,
+                isPicker: false,
+                chosen: '',
+                selectList: [],
+                range: {}
             }
         },
         computed: {
@@ -83,6 +127,8 @@
             this.info.role = this.$route.query.roleName;
             this.info.fuben = this.$route.query.fubenName;
             this.info.Oprice = this.$route.query.fubenPrice/100;
+            this.type = this.$route.query.type;
+            this.range = {rookie: this.$route.query.rookie_num, master: this.$route.query.master_num}
         },
         watch: {
             chosenCoupon(newVal, oldVal) {
@@ -167,6 +213,46 @@
             },
             closeOrder() {
 
+            },
+            onConfirm (value) {
+                // 人数确定
+                console.log("val: ", value)
+                this.isPicker = false;
+                this.info[this.chosen] = value
+                this.chosen = ''
+            },
+            changeList (type) {
+                this.chosen = type;
+                this.isPicker = true;
+                if (type === 'master') {
+                    let num = [0,1,2,3,4,5,6,7,8]
+                    this.selectList = num.slice(0, this.range[type]+1)
+                } else {
+                    let num = [1,2,3,4,5,6,7,8]
+                    this.selectList = num.slice(0, this.range[type])
+                }
+                console.log("list: ", this.selectList)
+            },
+            createRoom () {
+                this.createRoomCb((err, res)=>{
+                    if (!err) {
+                        console.log("res: ", res)
+                    }
+                })
+            },
+            createRoomCb (cb) {
+                // 创建匹配订单
+                let self = this;
+                this.Axios.post('/api/v1/room/', {
+                    dungeon: self.$route.query.fubenUri,
+                    leader_role: self.$route.query.roleUri,
+                    have_master: false,
+                    match_order_set: this.match_order
+                }).then(res=>{
+                    console.log("res: ", res)
+                }).catch(err=>{
+                    cb(err)
+                })
             }
         }
     }
@@ -215,5 +301,13 @@
     .rside-icon {
         color: #47c808;
         font-weight: 700;
+    }
+    .picker {
+        position: fixed;
+        width: 100vw;
+        margin: 0;
+        left: 0;
+        bottom: 50px;
+        z-index: 10;
     }
 </style>

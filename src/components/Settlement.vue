@@ -36,7 +36,7 @@
 			class="picker"
 			v-show="JueseSelectionIsShow"
 		/>
-		<identitySelection :show="identitySelectionIsShow" :AuthType="auth" @change="identitySelect" @close="identitySelectionIsShow = false"></identitySelection>
+		<identitySelection :show="identitySelectionIsShow" :AuthType="auth" @onchange="identitySelect" @close="identitySelectionIsShow = false"></identitySelection>
 	</div>
 </template>
 
@@ -48,6 +48,7 @@
 		data() {
 			return {
 				fuben: '',
+				fubenRange: {},
 				FubenSelectList: [],
 				FubenSelectionIsShow: false,
 				FubenSelectionId: 0,
@@ -59,6 +60,7 @@
 				yhq: 0,
 				auth: 0,
 				identitySelectionIsShow: false,
+				type: 0
 			}
 		},
 		components: {
@@ -95,6 +97,8 @@
 						self.FubenSelectList.push(ls)
 					})
 					self.fuben = self.FubenSelectList[0].text
+					self.fubenRange.master_num = self.FubenSelectList[0].master_num
+					self.fubenRange.rookie_num = self.FubenSelectList[0].rookie_num
 					self.price = self.FubenSelectList[0].price
 				}
 			}).catch(err=>{
@@ -133,10 +137,15 @@
 			onFubenConfirm(val, index) {
 				this.FubenSelectionIsShow = false;
 				this.fuben = val.text;
+				this.fubenRange.master_num = val.master_num
+				this.fubenRange.rookie_num = val.rookie_num
 				this.price = this.FubenSelectList[index].price - this.yhq
 			},
 			onFubenChange(picker, value, index) {
+				console.log("value: ", value)
 				this.fuben = value.text
+				this.fubenRange.master_num = val.master_num
+				this.fubenRange.rookie_num = val.rookie_num
 				this.FubenSelectionId = index
 		    },
 			onJueseConfirm(val, index) {
@@ -156,6 +165,7 @@
 		    		this.$toast('请先选择角色');
 		    		return
 				}
+				console.log("self.fuben: ", self.fuben)
 				Dialog.confirm({
 					title: '提醒',
 					message: '亲爱的用户，为了减少等待时间，请您进入游戏并买好门票。\n为您找好队伍后，若您没有做好准备，您可能会被移除出队伍。\n（打团费用原路退还）'
@@ -171,6 +181,9 @@
 							"fubenUri": self.FubenSelectList[self.FubenSelectionId].resource_uri,
 							"serverName": self.JueseSelectList[self.JueseSelectionId].serverName,
 							"serverUri": self.JueseSelectList[self.JueseSelectionId].serverUri,
+							"type": self.type,
+							"master_num": this.fubenRange.master_num,
+							"rookie_num": this.fubenRange.rookie_num
 						}
 					})
 				}).catch(() => {
@@ -179,6 +192,7 @@
 			},
 			identitySelect(val) {
 				console.log(val)
+				this.type = val.index
 			}
 		},
 		watch: {
