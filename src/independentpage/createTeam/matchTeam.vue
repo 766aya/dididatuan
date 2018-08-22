@@ -23,11 +23,12 @@
                 spot: '.',
                 minute: 0,
                 second: 0,
-                match_older: this.$router.query.match_older
+                match_older: this.$route.query.match_older
             }
         },
         created() {
             this.timing()
+            console.log("this.$router.query: ", this.$route.query)
         },
         methods: {
             timing () {
