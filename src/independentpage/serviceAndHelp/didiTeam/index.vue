@@ -25,7 +25,8 @@
 #didiTeam {
     margin-top: 15px;
     background-color: #fff;
-    height: 100vh;
+    min-height: calc(100vh - 100px);
+    height: 100%;
     display: grid;
     grid-auto-rows: 50px;
     padding: 15px;

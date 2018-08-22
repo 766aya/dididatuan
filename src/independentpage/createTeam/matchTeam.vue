@@ -9,6 +9,7 @@
                 <div class="item">副本: {{this.$route.query.fubenName}}</div>
             </div>
             <van-button size="large" class="cancal" @click="cancal">取消订单</van-button>
+            <van-button size="large" class="cancal" @click="test">测试定时器</van-button>
         </div>
     </div>
 </template>
@@ -27,9 +28,13 @@
             }
         },
         created() {
+            alert('created')
             this.timing()
         },
         methods: {
+            test () {
+                alert('test')
+            },
             timing () {
                 let self = this
                 intervalTime = setInterval(function () {
@@ -81,6 +86,9 @@
 
                 })
             }
+        },
+        mounted () {
+            alert('mounted')
         },
         destroyed () {
             clearInterval(intervalTime)
