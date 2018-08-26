@@ -112,20 +112,21 @@
                 	self.$store.state.user.isLogin = true;
                     if (self.$store.state.user.isLogin == true) {
                         this.getRoleInfo(self, (err, res)=>{
-                        	res.forEach(item=>{
-								console.log(item)
-	                        	let data = {
-									career: item.career,
-									careerUri : item.careerUri,
-									img : item.img,
-									text: item.roleName,
-									roleUri: item.roleUri,
-									serverName: item.serverName,
-									serverUri : item.serverUri
-								}
-                            	self.JueseSelectList.push(data)
-							})
-							self.juese = self.JueseSelectList[0].text
+							if (!err) {
+								res.forEach(item=>{
+									let data = {
+										career: item.career,
+										careerUri : item.careerUri,
+										img : item.img,
+										text: item.roleName,
+										roleUri: item.roleUri,
+										serverName: item.serverName,
+										serverUri : item.serverUri
+									}
+									self.JueseSelectList.push(data)
+								})
+								self.juese = self.JueseSelectList[0].text
+							}
                         })
                     } else {
                         Toast('您还未登陆，无法获取角色信息！')
