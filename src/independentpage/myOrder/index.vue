@@ -179,11 +179,11 @@
 	}
 	.roleName {
 		font-weight: 700;
-		line-height: 30px;
+		line-height: 25px;
 	}
 	.fubenName {
 		font-size: 15px;
-		line-height: 20px;
+		line-height: 25px;
 	}
 	.success {
 		color: #587c0c;
