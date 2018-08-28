@@ -4,12 +4,16 @@
 			<img src="/static/logo.png">
 		</div>
 		<div class="settlement-content">
-			<div class="text t1">副本：</div>
-			<div class="text t2" @click="FubenSelectionIsShow = true">{{fuben}}</div>
-			<div class="text t2 iconfont icon-you"></div>
-			<div class="text t1">角色：</div>
-			<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
-			<div class="text t2 iconfont icon-you"></div>
+			<div class="list">
+				<div class="text t1">副本：</div>
+				<div class="text t2" @click="FubenSelectionIsShow = true">{{fuben}}</div>
+				<div class="text t3 iconfont icon-you"></div>
+			</div>
+			<div class="list">
+				<div class="text t1">角色：</div>
+				<div class="text t2" @click="JueseSelectionIsShow=true">{{juese}}</div>
+				<div class="text t3 iconfont icon-you"></div>
+			</div>
 			<div class="item price" v-text="`价格：${price/100}元`"></div>
 			<div class="item yhq">优惠券已减 <span class="red">{{yhq}}</span> 元</div>
 		</div>
@@ -226,14 +230,18 @@
 		width: 100%;
 	}
 	.settlement-content {
-		display: grid;
-		grid-template-columns: 50px auto 30px;
-		grid-template-rows: 50px 50px 50px 20px;
+		display: flex;
+		flex-wrap: wrap;
 		padding: 20px 20px;
 	}
+	.list {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		border-bottom: 1px solid #AAAAAA;
+	}
 	.item {
-		grid-column-start: 1;
-    	grid-column-end: 4;
     	text-align: center;
 	}
 	.price {
@@ -241,26 +249,37 @@
 		line-height: 30px;
 		font-size: 1rem;
 		color: #000000;
+		width: 100%;
 	}
 	.yhq {
 		line-height: 20px;
 		font-size: 0.8rem;
 		color: #5d5d5d;
+		width: 100%;
 	}
 	.red {
 		color: #FF0036;
 	}
 	.text {
 		line-height: 50px;
-		border-bottom: 1px solid #AAAAAA;
+	}
+	.t1 {
+		width: 50px;
 	}
 	.t2 {
+		width: calc(100% - 80px);
+    	padding-right: 12px;
 		text-align: right;
 		color: #AAAAAA;
 		font-size: 0.9rem;
+		overflow: hidden;
+    	height: 50px;
 	}
 	.t2::before{
 		font-size: 0.75rem;
+	}
+	.t3 {
+		width: 18px;
 	}
 	.btn {
 		position: absolute;
