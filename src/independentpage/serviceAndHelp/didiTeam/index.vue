@@ -23,7 +23,7 @@
 
 <style scoped>
 #didiTeam {
-    margin-top: 15px;
+    margin-top: 2px;
     background-color: #fff;
     min-height: calc(100vh - 100px);
     height: 100%;
