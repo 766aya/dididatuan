@@ -17,10 +17,6 @@
             <div class="rside" @click="isPicker=true;chosen='cshu'">{{info.cshu.name}}<span class="text iconfont icon-you"></span></div>
         </div>
         <div class="item">
-            <div class="lside">总奶数</div>
-            <div class="rside" @click="isPicker=true;chosen='naishu'">{{info.naishu.name}}<span class="text iconfont icon-you"></span></div>
-        </div>
-        <div class="item">
             <div class="lside">老板总数</div>
             <div class="rside" @click="isPicker=true;chosen='boss'">{{info.boss.name}}<span class="text iconfont icon-you"></span></div>
         </div>
@@ -68,7 +64,6 @@
                     ,kuaqu: [{text: '跨区1'}, {text: '跨区2'}]
                     ,zhize: [{text: '职责1'}, {text: '职责2'}]
                     ,cshu: [{text: '0', value: 0}, {text: '1', value: 1}, {text: '2', value: 2}, {text: '3', value: 3}, {text: '4', value: 4}]
-                    ,naishu: [{text: '0', value: 0}, {text: '1', value: 1}, {text: '2', value: 2}, {text: '3', value: 3}, {text: '4', value: 4}]
                     ,boss: [{text: '0', value: 0}, {text: '1', value: 1}, {text: '2', value: 2}, {text: '3', value: 3}, {text: '4', value: 4}, {text: '5', value: 5}, {text: '6', value: 6}]
                     ,shenfen: [{text: '团长'}, {text: '大神'}]
                     ,pinjia: [{text: '4.0及以下'}, {text: '4.1'}, {text: '4.2'}, {text: '4.3'}, {text: '4.4'}, {text: '4.5'}, {text: '4.6'}, {text: '4.7'}, {text: '4.8'}, {text: '4.9'}, {text: '5'}]
@@ -78,7 +73,6 @@
                     ,kuaqu: {name: '', value: ''}
                     ,zhize: {name: '', value: ''}
                     ,cshu: {name: '', value: ''}
-                    ,naishu: {name: '', value: ''}
                     ,boss: {name: '', value: ''}
                     ,shenfen: {name: '', value: ''}
                     ,pinjia: {name: '', value: ''}
@@ -101,11 +95,8 @@
                 this.info[this.chosen].name = val.text
                 this.info[this.chosen].value = val.value
                 this.isPicker = false
-                if (self.chosen == 'cshu' || self.chosen == 'naishu' || self.chosen == 'boss') {
-                    if ((self.info.cshu.value + self.info.naishu.value) > 4) {
-                        self.errText = 'C位人数和奶人数之和应小于4人'
-                        self.error = false
-                    } else if ((self.info.cshu.value + self.info.naishu.value + self.info.boss.value) > 8) {
+                if (self.chosen == 'cshu' || self.chosen == 'boss') {
+                    if ((self.info.cshu.value + self.info.boss.value) > 8) {
                         self.errText = '队伍总人数应小于8人'
                         self.error = false
                     } else {
@@ -135,6 +126,8 @@
 
 <style scoped>
     #Calculator {
+        height: calc(100vh - 96px);
+        background-color: #fff;
         display: grid;
         grid-auto-rows: 50px;
         padding-bottom: 50px;
@@ -161,7 +154,7 @@
         width: 100vw;
         margin: 0;
         left: 0;
-        bottom: 50px;
+        bottom: 0px;
         z-index: 10;
     }
     .offer {
@@ -169,7 +162,7 @@
         width: 100vw;
         margin: 0;
         left: 0;
-        bottom: 50px;
+        bottom: 0px;
         height: 160px;
         background-color: #fff;
     }
